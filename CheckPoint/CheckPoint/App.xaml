@@ -18,5 +18,44 @@
             <Setter Property="BackgroundColor" Value="#9BC303"/>
         </Style>
 
+        <Style TargetType="Button" x:Key="ButtonRedondo" BasedOn="{StaticResource ButtonGreen}">
+            <Setter Property="BackgroundColor" Value="#9BC303"/>
+            <Setter Property="FontSize" Value="50"/>
+            <Setter Property="CornerRadius" Value="40"/>
+            <Setter Property="TextColor" Value="White"/>
+
+        </Style>
+
+        <Style TargetType="Label" x:Key="DataTitulo">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontFamily" Value="MontserratBold"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextColor" Value="Black"/>
+
+
+        </Style>
+
+        <Style TargetType="BoxView" x:Key="BoxStatus">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Color" Value="#9BC303"/>
+            <Setter Property="WidthRequest" Value="97"/>
+            <Setter Property="HeightRequest" Value="33"/>
+
+          
+        </Style>
+
+        <Style TargetType="Frame" x:Key="FrameItem">
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="WidthRequest" Value="321"/>
+            <Setter Property="HeightRequest" Value="110"/>
+
+        </Style>
+
+        <Style TargetType="Image" x:Key="ImagemMapa">
+            <Setter Property="WidthRequest" Value="400"/>
+
+        </Style>
+
     </Application.Resources>
 </Application>
