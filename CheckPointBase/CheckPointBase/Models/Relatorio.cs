@@ -1,16 +1,30 @@
-﻿using System;
+﻿using CheckPointBase.Models.Base;
+using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CheckPointBase.Models
 {
-    public class Relatorio
+    [Table("RELATORIO")]
+    public class Relatorio : CoreEntity
     {
-        public int Id { get; set; }
+        [Column("ID_RELATORIO")]
+        public int RelatorioId { get; set; }
+
+        [Column("DT_RELATORIO")]
         public DateTime Data { get; set; }
+
+        [Column("TEMPO_JORNADA")]
         public DateTime TempoJornada { get; set; }
+
+        [Column("SALDO")]
         public DateTime Saldo { get; set; }
+
+        [Column("STATUS")]
         public string Status { get; set; }
-        public int IdUsuario { get; set; }
+
+        [Column("ID_USUARIO")]
+        public int UsuarioId { get; set; }
     }
 }
