@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CheckPoint.ViewModels"
              x:Class="CheckPoint.Views.LoginPage">
+    <ContentPage.BindingContext>
+        <local:LoginViewModel/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
-
+       
         <!--<StackLayout>
             <Entry x:Name="EntryEmail" Text="{Binding Email}"/>
             <Entry x:Name="EntrySenha" Text="{Binding Senha}"/>
@@ -12,25 +17,30 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="15*"/>
+                <RowDefinition Height="16*"/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="40*"/>
-                <RowDefinition Height="20*"/>
+                <RowDefinition Height="14*"/>
             </Grid.RowDefinitions>
 
-            <BoxView Grid.Row="0" BackgroundColor="Red"/>
-            <BoxView Grid.Row="1" BackgroundColor="Red"/>
-            <BoxView Grid.Row="2" BackgroundColor="Red"/>
-            <BoxView Grid.Row="3" BackgroundColor="Red"/>
+            <!--<BoxView Grid.Row="0" BackgroundColor="White"/>
+            <BoxView Grid.Row="1" BackgroundColor="White"/>
+            <BoxView Grid.Row="2" BackgroundColor="White"/>-->
+            <BoxView Grid.Row="3" BackgroundColor="White"/>
 
-            <Label Text="Texto aqui" Grid.Row="1" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Image Source="drawable/background2.png" Grid.Row="0" Grid.RowSpan="4" VerticalOptions="StartAndExpand" />
 
-            <Frame Grid.Row="2" BackgroundColor="White" Margin="25,0,25,0" CornerRadius="25">
+            <Image Source="drawable/LogoRetanguloWhite.png" Grid.Row="0" Margin="0,40,0,7"/>
+            
+
+            <Label Text="O maior auxiliador na gestão de pessoas" Grid.Row="1" HorizontalTextAlignment="Center" VerticalOptions="Center" Style="{StaticResource labelTitulo}" Margin="0,0,0,0"/>
+
+            <Frame Grid.Row="2"  BackgroundColor="White" Margin="25,0,25,80" CornerRadius="25" Padding="22">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
 
 
@@ -43,20 +53,13 @@
                     <Grid Grid.Row="2" ColumnDefinitions="1*,9*" VerticalOptions="Start">
                         <CheckBox Grid.Column="0" VerticalOptions="Start"/>
                         <Label Text="Mantenha-me conectado(a)" VerticalOptions="Center" TextColor="Black" Grid.Column="1"/>
-                    </Grid>
+                    </Grid>                    
 
-                    
-
-
-
-                </Grid>
-                
+                </Grid>               
 
             </Frame>
 
-            <Button Text="ENTRAR" Grid.Row="2" Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Center"/>
-
-
+            <Button Text="ENTRAR" Command="{Binding LoginCommand}" Grid.Row="2" Grid.RowSpan="2" Margin="45,100,45,20" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Style="{StaticResource ButtonGreen}"/>
 
         </Grid>
     </ContentPage.Content>

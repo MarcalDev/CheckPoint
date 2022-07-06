@@ -1,5 +1,6 @@
 ﻿using System;
 using CheckPointBase.Models;
+using CheckPoint.Views;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -39,25 +40,30 @@ namespace CheckPoint.ViewModels
 
         public LoginViewModel()
         {
+            //var navPage = new NavigationPage(new HomePage());
             LoginCommand = new Command(Logar);
+
+
+
 
         }
 
         public void Logar()
         {
+            App.Current.MainPage = new NavigationPage(new HomePage());
 
-            var objUser = GetUsuarioByEmail(Email);
-            string emailBd = objUser.Email.ToString();
-            string senhaBd = objUser.Senha.ToString();
-            bool certo = false;
-            if (senha == senhaBd)
-            {
-                certo = true;
-            }
-            else
-            {
-                certo = false;
-            }
+            //var objUser = GetUsuarioByEmail(Email);
+            //string emailBd = objUser.Email.ToString();
+            //string senhaBd = objUser.Senha.ToString();
+            //bool certo = false;
+            //if (senha == senhaBd)
+            //{
+            //    certo = true;
+            //}
+            //else
+            //{
+            //    certo = false;
+            //}
         }
 
 

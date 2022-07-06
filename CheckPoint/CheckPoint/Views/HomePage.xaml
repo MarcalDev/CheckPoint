@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CheckPoint.Views.HomePage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="drawable/background2.png" Grid.Row="0" Grid.RowSpan="3" VerticalOptions="StartAndExpand"  />
+
+            <Frame BorderColor="LightGray" Grid.Row="0" BackgroundColor="White" CornerRadius="25" VerticalOptions="StartAndExpand" HeightRequest="150" HasShadow="True"/>
+            
+            <Frame BorderColor="LightGray" Grid.Row="2" BackgroundColor="White" CornerRadius="25" VerticalOptions="End" HeightRequest="60" HasShadow="True"/>
+
+            <Button Text="+" TextColor="White" FontSize="50" CornerRadius="40" Grid.Row="1" Margin="0,0,0,42" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="70" WidthRequest="70" Style="{StaticResource ButtonGreen}"/>
+
+            <Frame BackgroundColor="White" CornerRadius="15" HorizontalOptions="Center" Grid.Row="1" VerticalOptions="Center" WidthRequest="321" HeightRequest="110">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Text="06/07/2022" FontSize="20" Grid.Column="0"  TextColor="Black"/>
+                        <BoxView  CornerRadius="10" Color="Yellow" Grid.Column="1" WidthRequest="97" HeightRequest="33" HorizontalOptions="End" VerticalOptions="Start"/>
+                        
+
+                    </Grid>
+                    
+                    <Image Source="drawable/mapinha.png" Grid.Row="1" WidthRequest="400" Margin="0,0,0,0" MinimumWidthRequest="400" HorizontalOptions="Center"/>
+
+                    
+                    
+                </Grid>
+                
+            </Frame>
+
+
+
+            <ListView Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Frame>
+                                    
+                                </Frame>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
