@@ -3,10 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckPoint.Views.LoginPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+
+        <!--<StackLayout>
+            <Entry x:Name="EntryEmail" Text="{Binding Email}"/>
+            <Entry x:Name="EntrySenha" Text="{Binding Senha}"/>
+            <Button x:Name="ButtonLogin" Command="{Binding LoginCommand}"/>
+        </StackLayout>-->
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="60*"/>
+            </Grid.RowDefinitions>
+            
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
