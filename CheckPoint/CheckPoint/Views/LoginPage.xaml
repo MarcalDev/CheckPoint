@@ -12,10 +12,52 @@
 
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
                 <RowDefinition Height="40*"/>
-                <RowDefinition Height="60*"/>
+                <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
-            
+
+            <BoxView Grid.Row="0" BackgroundColor="Red"/>
+            <BoxView Grid.Row="1" BackgroundColor="Red"/>
+            <BoxView Grid.Row="2" BackgroundColor="Red"/>
+            <BoxView Grid.Row="3" BackgroundColor="Red"/>
+
+            <Label Text="Texto aqui" Grid.Row="1" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+            <Frame Grid.Row="2" BackgroundColor="White" Margin="25,0,25,0" CornerRadius="25">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <Label Text="EMAIL" TextColor="Black" FontAttributes="Bold" Grid.Row="0"/>
+                    <Entry Placeholder="nome@email.com" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="0" VerticalOptions="Center"/>
+
+                    <Label Text="SENHA" TextColor="Black" FontAttributes="Bold" Grid.Row="1"/>
+                    <Entry Placeholder="Senha" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="1" VerticalOptions="Center"/>
+
+                    <Grid Grid.Row="2" ColumnDefinitions="1*,9*" VerticalOptions="Start">
+                        <CheckBox Grid.Column="0" VerticalOptions="Start"/>
+                        <Label Text="Mantenha-me conectado(a)" VerticalOptions="Center" TextColor="Black" Grid.Column="1"/>
+                    </Grid>
+
+                    
+
+
+
+                </Grid>
+                
+
+            </Frame>
+
+            <Button Text="ENTRAR" Grid.Row="2" Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+
+
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>
