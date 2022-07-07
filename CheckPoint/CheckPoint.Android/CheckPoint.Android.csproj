@@ -61,6 +61,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\DatabasePath.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +84,10 @@
     <AndroidResource Include="Resources\drawable\drawable-hdpi\CheckPointTituloBlack.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CheckPointBase\CheckPointBase\CheckPointBase.csproj">
+      <Project>{B66219FC-EF16-4D0C-99BA-24EDE720F40D}</Project>
+      <Name>CheckPointBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CheckPoint\CheckPoint.csproj">
       <Project>{F3C439CD-546A-4BAE-8002-C19FA50E5148}</Project>
       <Name>CheckPoint</Name>

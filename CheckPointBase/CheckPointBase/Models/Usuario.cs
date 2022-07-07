@@ -8,9 +8,7 @@ namespace CheckPointBase.Models
 {
     [Table("USUARIO")]
     public class Usuario : CoreEntity
-    {
-        [Column("ID_USUARIO")]
-        public int UsuarioId { get; set; }
+    {      
 
         [Column("NOME_USUARIO")]
         public string NomeUsuario { get; set; }

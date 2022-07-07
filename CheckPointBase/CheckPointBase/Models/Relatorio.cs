@@ -8,10 +8,7 @@ namespace CheckPointBase.Models
 {
     [Table("RELATORIO")]
     public class Relatorio : CoreEntity
-    {
-        [Column("ID_RELATORIO")]
-        public int RelatorioId { get; set; }
-
+    {        
         [Column("DT_RELATORIO")]
         public DateTime Data { get; set; }
 
@@ -24,7 +21,7 @@ namespace CheckPointBase.Models
         [Column("STATUS")]
         public string Status { get; set; }
 
-        [Column("ID_USUARIO")]
-        public int UsuarioId { get; set; }
+        [Column("USUARIO_ID")]
+        public int Fk_IdUsuario { get; set; }
     }
 }

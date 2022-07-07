@@ -2,6 +2,7 @@
 using CheckPointBase.Models.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CheckPointBase.Data.Common
@@ -9,6 +10,7 @@ namespace CheckPointBase.Data.Common
     public class CoreRepository<T> : ICoreRepository<T> where T : CoreEntity, new()
     {
         protected CheckPointContext _dbContext;
+
         public CheckPointContext DbContext
         {
             get { return _dbContext; }
@@ -21,7 +23,7 @@ namespace CheckPointBase.Data.Common
             {
                 var rs = _dbContext.Conexao.Delete(model);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -40,6 +42,7 @@ namespace CheckPointBase.Data.Common
                     if (rs == 0)
                         throw new Exception("Erro ao excluir registro");
                 }
+
                 _dbContext.Conexao.Commit();
             }
             catch (Exception ex)
@@ -74,6 +77,7 @@ namespace CheckPointBase.Data.Common
             }
             catch (Exception e)
             {
+
                 throw new Exception(e.Message);
             }
         }
@@ -84,8 +88,9 @@ namespace CheckPointBase.Data.Common
             {
                 return _dbContext.Conexao.Table<T>().ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+
                 throw new Exception(e.Message);
             }
         }
@@ -96,32 +101,88 @@ namespace CheckPointBase.Data.Common
             {
                 return _dbContext.Conexao.Table<T>().Where(t => t.Ativo == 1).ToList();
             }
-            catch(Exception ex);
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
 
         public T GetById(Guid Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _dbContext.Conexao.Get<T>(Id);
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
         }
 
         public DateTime? GetLastUpdate()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = _dbContext.Conexao.Table<T>();
+                if (result.Count() > 0)
+                    return result.Max(t => t.Alteracao);
+                else
+                    return DateTime.MinValue;
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public void InsertOrReplace(T Model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var rs = _dbContext.Conexao.InsertOrReplace(Model);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public void InsertOrReplace(List<T> Model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbContext.Conexao.BeginTransaction();
+
+                foreach (var model in Model)
+                {
+                    var rs = _dbContext.Conexao.InsertOrReplace(model);
+
+                    if (rs == 0)
+                        throw new Exception("Erro ao inserir registro");
+                }
+
+                _dbContext.Conexao.Commit();
+            }
+            catch (Exception ex)
+            {
+                _dbContext.Conexao.Rollback();
+                throw new Exception(ex.Message);
+            }
         }
 
         public void Update(T model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var rs = _dbContext.Conexao.Update(model);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

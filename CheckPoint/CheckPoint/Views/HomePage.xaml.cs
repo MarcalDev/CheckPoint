@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheckPoint.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,13 @@ namespace CheckPoint.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
+        HomeViewModel _homeViewModel;
         public HomePage()
         {
             InitializeComponent();
+
+            _homeViewModel = BindingContext as HomeViewModel;
+            _homeViewModel.Navigation = Navigation;
         }
     }
 }

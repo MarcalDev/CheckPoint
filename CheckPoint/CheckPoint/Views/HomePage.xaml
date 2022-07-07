@@ -25,7 +25,7 @@
             <Button Text="+" Grid.Row="1" Margin="0,0,0,42" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="70" WidthRequest="70" Style="{StaticResource ButtonRedondo}"/>
           
 
-            <ListView Grid.Row="1">
+            <ListView x:Name="Lista01" Grid.Row="1">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

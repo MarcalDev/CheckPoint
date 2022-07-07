@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using CheckPointBase.Data.Repository;
 
 namespace CheckPoint.ViewModels
 {
@@ -13,6 +14,9 @@ namespace CheckPoint.ViewModels
     {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        private readonly UsuarioRepository _usuarioRepository;
+        public INavigation Navigation { get; set; }
 
         private string email { get; set; }
         public string Email
@@ -36,6 +40,7 @@ namespace CheckPoint.ViewModels
         }
 
         public ICommand LoginCommand { protected set; get; }
+        public ICommand PaginaCadastroCommand { protected set; get; }
 
 
         public LoginViewModel()
@@ -43,45 +48,38 @@ namespace CheckPoint.ViewModels
             //var navPage = new NavigationPage(new HomePage());
             LoginCommand = new Command(Logar);
 
+            PaginaCadastroCommand = new Command(NavegaPaginaCadastro);
 
-
+            _usuarioRepository = new UsuarioRepository();
 
         }
 
         public void Logar()
         {
-            App.Current.MainPage = new NavigationPage(new HomePage());
+            
+            Usuario user = _usuarioRepository.GetUsuarioByLogin(Email,Senha);
 
-            //var objUser = GetUsuarioByEmail(Email);
-            //string emailBd = objUser.Email.ToString();
-            //string senhaBd = objUser.Senha.ToString();
-            //bool certo = false;
-            //if (senha == senhaBd)
-            //{
-            //    certo = true;
-            //}
-            //else
-            //{
-            //    certo = false;
-            //}
-        }
-
-
-        public List<Usuario> GetUsuarios()
-        {
-            return new List<Usuario>()
+            if(user != null)
             {
-                new Usuario(){ Id = 1, Email = "joao@email.com", Senha = "12345" },
-                new Usuario(){ Id = 2, Email = "pedro@email.com", Senha = "54321" },
-            };
+                // usuário existe
+                App.Current.MainPage = new NavigationPage(new HomePage());
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("Alerta", "Usuário não encontrado", "OK");
+                // Usuário não existe
+            }
+
+            
+
         }
 
-        public Usuario GetUsuarioByEmail(string email)
+        public void NavegaPaginaCadastro()
         {
-            List<Usuario> _listaUsuarios = GetUsuarios();
-            var user = _listaUsuarios.Find(x => x.Email == email);
-
-            return user;
+            Navigation.PushAsync(new CadastroUsuarioPage());
+                        
         }
+
+
     }
 }

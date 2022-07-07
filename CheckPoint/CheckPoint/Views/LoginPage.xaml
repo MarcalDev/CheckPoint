@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CheckPoint.ViewModels"
-             x:Class="CheckPoint.Views.LoginPage">
+             x:Class="CheckPoint.Views.LoginPage"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
         <local:LoginViewModel/>
     </ContentPage.BindingContext>
@@ -45,10 +46,10 @@
 
 
                     <Label Text="EMAIL" TextColor="Black" FontAttributes="Bold" Grid.Row="0"/>
-                    <Entry Placeholder="nome@email.com" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="0" VerticalOptions="Center"/>
+                    <Entry Text="{Binding Email}" Placeholder="nome@email.com" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="0" VerticalOptions="Center"/>
 
                     <Label Text="SENHA" TextColor="Black" FontAttributes="Bold" Grid.Row="1"/>
-                    <Entry Placeholder="Senha" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="1" VerticalOptions="Center"/>
+                    <Entry Text="{Binding Senha}" Placeholder="Senha" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="1" VerticalOptions="Center"/>
 
                     <Grid Grid.Row="2" ColumnDefinitions="1*,9*" VerticalOptions="Start">
                         <CheckBox Grid.Column="0" VerticalOptions="Start"/>
@@ -60,6 +61,12 @@
             </Frame>
 
             <Button Text="ENTRAR" Command="{Binding LoginCommand}" Grid.Row="2" Grid.RowSpan="2" Margin="45,100,45,20" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Style="{StaticResource ButtonGreen}"/>
+
+            <Label Text="Não possui uma conta? Cadastre-se" Grid.Row="2" TextColor="Black" FontSize="14" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,20">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PaginaCadastroCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
 
         </Grid>
     </ContentPage.Content>

@@ -11,6 +11,7 @@ namespace CheckPointBase.Models.Base
         /// Primary key da tabela
         /// </summary>
         [PrimaryKey]
+        //public int Id { get; set; } 
         public Guid Id { get; set; } = Guid.NewGuid();
 
         /// <summary>
