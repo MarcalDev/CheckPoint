@@ -42,11 +42,11 @@ namespace CheckPointBase.Data.Repository
             }
         }
 
-        public List<Relatorio> GetRelatorios(Usuario usuarioId)
+        public List<Relatorio> GetRelatorios(int usuarioId)
         {
             try
             {
-                var relatorios = _dbContext.Conexao.Query<Relatorio>("SELECT * RELATORIO ORDER BY DT_RELATORIO");
+                var relatorios = _dbContext.Conexao.Query<Relatorio>("SELECT * FROM RELATORIO");
 
                 return relatorios;
             }

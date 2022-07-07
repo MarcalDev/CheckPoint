@@ -20,6 +20,8 @@ namespace CheckPoint.Views
 
             _homeViewModel = BindingContext as HomeViewModel;
             _homeViewModel.Navigation = Navigation;
+
+            Lista01.ItemsSource = _homeViewModel.lista;
         }
     }
 }

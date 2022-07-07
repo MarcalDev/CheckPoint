@@ -10,7 +10,7 @@ namespace CheckPointBase.Data.Interface
     {
         Relatorio GetRelatorioById(int relatorioId);
         Relatorio GetRelatorioByDate(DateTime data, int usuarioId);
-        List<Relatorio> GetRelatorios(Usuario usuarioId);
+        List<Relatorio> GetRelatorios(int usuarioId);
         bool InsertOrReplaceRelatorio(Relatorio relatorio);
     }
 }
