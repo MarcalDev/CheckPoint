@@ -23,14 +23,16 @@
             <Frame BorderColor="LightGray" Grid.Row="2" BackgroundColor="White" CornerRadius="25" VerticalOptions="End" HeightRequest="60" HasShadow="True"/>
 
             <Button Text="+" Grid.Row="1" Margin="0,0,0,42" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="70" WidthRequest="70" Style="{StaticResource ButtonRedondo}"/>
-          
 
-            <ListView x:Name="Lista01" Grid.Row="1">
+
+
+            <ListView ItemsSource="{Binding lista}" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <ViewCell>                            
                             <StackLayout>
-                                <Frame HorizontalOptions="Center" Grid.Row="1" VerticalOptions="Center" Style="{StaticResource FrameItem}">
+                                <Frame Margin="0,10,0,0" HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource FrameItem}">
+                                    
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="1*"/>
@@ -43,12 +45,10 @@
                                                 <ColumnDefinition Width="1*"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Label Text="06/07/2022" Grid.Column="0" Style="{StaticResource DataTitulo}"/>
+                                            <Label Text="{Binding Data}" Grid.Column="0" Style="{StaticResource DataTitulo}"/>
                                             <BoxView Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Style="{StaticResource BoxStatus}"/>
 
                                         </Grid>
-
-                                        <Image Source="drawable/mapinha.png" Grid.Row="1" HorizontalOptions="Center" Style="{StaticResource ImagemMapa}"/>
 
                                     </Grid>
                                 </Frame>

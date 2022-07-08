@@ -1,9 +1,11 @@
-﻿using CheckPointBase.Data.Repository;
+﻿using CheckPoint.Views;
+using CheckPointBase.Data.Repository;
 using CheckPointBase.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace CheckPoint.ViewModels
@@ -14,7 +16,28 @@ namespace CheckPoint.ViewModels
 
         private readonly RelatorioRepository _relatorioRepository;
         public INavigation Navigation { get; set; }
+
         public List<Relatorio> lista;
+
+        public ICommand DetalheRelatorioCommand { get; set; }
+
+        private Guid idRelatorio;
+
+        public Guid IdRelatorio
+        {
+            get { return idRelatorio; }
+            set { idRelatorio = value; }
+        }
+
+        private Relatorio relatorioItem;
+
+        public Relatorio RelatorioItem
+        {
+            get { return relatorioItem; }
+            set { relatorioItem = value; }
+        }
+
+
 
         public HomeViewModel()
         {
@@ -22,13 +45,13 @@ namespace CheckPoint.ViewModels
 
             AdicionarRelatorio();
             ListarRelatorios();
-
             
         }
 
         public  void ListarRelatorios()
         {       
             lista = _relatorioRepository.GetRelatorios(1);
+            
         }
 
         public void AdicionarRelatorio()
@@ -37,13 +60,20 @@ namespace CheckPoint.ViewModels
             relatorio.Data = new DateTime(2022, 07, 07, 15, 16, 10);
             relatorio.TempoJornada = new DateTime(2022, 07, 07, 15, 16, 10);
             relatorio.Saldo = new DateTime(2022, 07, 07, 15, 16, 10);
-            relatorio.Status = "a";
+            relatorio.Status = "Ativo";
             relatorio.Fk_IdUsuario = 1;
             relatorio.Ativo = 1;
             relatorio.Alteracao = null;
-
+            
 
             var p = _relatorioRepository.InsertOrReplaceRelatorio(relatorio);
+        }
+
+        public void NavegaDetalheRelatorio(Relatorio relatorio)
+        {
+            
+            Navigation.PushAsync(new DetalheRelatorioPage(relatorio));
+
         }
     }
 }

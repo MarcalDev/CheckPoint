@@ -76,6 +76,7 @@ namespace CheckPoint.ViewModels
 
         public void NavegaPaginaCadastro()
         {
+
             Navigation.PushAsync(new CadastroUsuarioPage());
                         
         }

@@ -1,4 +1,5 @@
 ﻿using CheckPoint.ViewModels;
+using CheckPointBase.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,27 @@ namespace CheckPoint.Views
             _homeViewModel = BindingContext as HomeViewModel;
             _homeViewModel.Navigation = Navigation;
 
-            Lista01.ItemsSource = _homeViewModel.lista;
+            //ListaRelatorios.ItemsSource = _homeViewModel.lista;
+        }
+
+        
+
+        private void ListaRelatorios_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            try
+            {
+                var item = e.SelectedItem as Relatorio;
+
+                _homeViewModel.RelatorioItem = item;
+
+                _homeViewModel.NavegaDetalheRelatorio(item);
+            }
+            catch (Exception ex)
+            {
+
+                DisplayAlert("Alerta!", ex.Message, "OK");
+            }
+
         }
     }
 }
