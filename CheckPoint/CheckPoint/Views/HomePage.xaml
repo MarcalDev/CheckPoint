@@ -20,7 +20,40 @@
 
             <!--Header-->
             <Frame BorderColor="LightGray" Grid.Row="0" BackgroundColor="White" CornerRadius="25" VerticalOptions="StartAndExpand" HeightRequest="150" HasShadow="True">
-                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.4*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="1" TextColor="Black" FontSize="34" FontAttributes="Bold" FontFamily="MontserratBold" Margin="0,0,0,0" VerticalOptions="Start">
+                        <Label.Text>
+                            Histórico                            
+                            de pontos
+                        </Label.Text>                       
+                    </Label>
+
+
+
+
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="0.8*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="6*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <Frame CornerRadius="20" HorizontalOptions="Start" HeightRequest="40" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Grid.Row="0" Text="João Pedro" FontSize="16" TextColor="Black" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Grid.Row="1" Text="Gama Soluções" FontSize="11" TextColor="Black" VerticalOptions="Center"/>
+                    </Grid>
+                    
+                    
+                </Grid>
             </Frame>
             
             <!-- Footer-->
