@@ -8,9 +8,9 @@ namespace CheckPointBase.Data.Interface
 {
     public interface IRelatorioRepository : ICoreRepository<Relatorio>
     {
-        Relatorio GetRelatorioById(int relatorioId);
+        Relatorio GetRelatorioById(Guid relatorioId);
         Relatorio GetRelatorioByDate(DateTime data, int usuarioId);
-        List<Relatorio> GetRelatorios(int usuarioId);
+        List<Relatorio> GetRelatorios();
         bool InsertOrReplaceRelatorio(Relatorio relatorio);
     }
 }

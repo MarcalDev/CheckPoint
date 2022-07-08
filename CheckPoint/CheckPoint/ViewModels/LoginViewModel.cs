@@ -51,7 +51,8 @@ namespace CheckPoint.ViewModels
             PaginaCadastroCommand = new Command(NavegaPaginaCadastro);
 
             _usuarioRepository = new UsuarioRepository();
-
+            Email = "joao@gmail.com";
+            Senha = "12345";
         }
 
         public void Logar()

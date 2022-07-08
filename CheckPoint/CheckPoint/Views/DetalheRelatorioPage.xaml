@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CheckPoint.ViewModels"
              x:Class="CheckPoint.Views.DetalheRelatorioPage"
-             BackgroundColor="White">
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
         <local:DetalheRelatorioViewModel/>
     </ContentPage.BindingContext>
@@ -26,7 +27,7 @@
 
 
 
-            <ListView ItemsSource="{Binding Pontos}" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
+            <ListView x:Name="ListaPontos" ItemsSource="{Binding Pontos}" Grid.Row="1" HasUnevenRows="True" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -45,7 +46,7 @@
                                                 <ColumnDefinition Width="1*"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Label Text="{Binding DataInicio}" Grid.Column="0" Style="{StaticResource DataTitulo}"/>
+                                            <Label Text="Texto" Grid.Column="0" Style="{StaticResource DataTitulo}"/>
                                             <BoxView Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Style="{StaticResource BoxStatus}"/>
 
                                         </Grid>

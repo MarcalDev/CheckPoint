@@ -28,7 +28,7 @@ namespace CheckPointBase.Data.Repository
             }
         }
 
-        public Relatorio GetRelatorioById(int relatorioId)
+        public Relatorio GetRelatorioById(Guid relatorioId)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace CheckPointBase.Data.Repository
             }
         }
 
-        public List<Relatorio> GetRelatorios(int usuarioId)
+        public List<Relatorio> GetRelatorios()
         {
             try
             {

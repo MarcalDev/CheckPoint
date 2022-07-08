@@ -13,15 +13,7 @@ namespace CheckPoint.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private readonly PontoRepository _pontoRepository;
 
-        private Relatorio relatorioItem;
-
-        public Relatorio RelatorioItem
-        {
-            get { return relatorioItem; }
-            set { relatorioItem = value; 
-                  PropertyChanged(this, new PropertyChangedEventArgs("RelatorioItem")); }
-        }
-
+        public Relatorio relatorioItem;  
 
         private Guid idRelatorio;
 
@@ -36,29 +28,50 @@ namespace CheckPoint.ViewModels
         public List<Ponto> Pontos
         {
             get { return pontos; }
-            set { pontos = value; }
+            set { 
+                pontos = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Pontos"));
+            }
         }
 
         public DetalheRelatorioViewModel()
         {
             _pontoRepository = new PontoRepository();
 
+            //AdicionarPonto();
 
-            ListarPontos();
+            
 
 
         }
 
         public void ListarPontos()
         {
-            pontos = _pontoRepository.GetPontosByRelatorio(RelatorioItem.Id);
+            pontos = _pontoRepository.GetPontosByRelatorio(relatorioItem.Id);
         }
 
         // Uso apenas para dev
         public void AdicionarPonto()
         {
+            Ponto ponto = new Ponto();
+            ponto.DataInicio = new DateTime(2022, 07, 07, 15, 16, 10);
+            ponto.DataFim = new DateTime(2022, 07, 07, 15, 16, 10);
+            ponto.Local = "Endereco";
+            //ponto.Fk_IdRelatorio = Guid.Parse("2980b26f-8fb6-4b6e-b761-6180c926e248");
+            ponto.Fk_IdRelatorio = relatorioItem.Id;
+            ponto.Ativo = 1;
+            ponto.Alteracao = null;
 
+            var p = _pontoRepository.InsertOrReplacePonto(ponto);
         }
+
+        public void CarregaDados()
+        {
+            //AdicionarPonto();
+
+            ListarPontos();
+        }
+
 
 
     }

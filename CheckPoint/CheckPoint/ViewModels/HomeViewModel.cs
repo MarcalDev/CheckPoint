@@ -44,23 +44,18 @@ namespace CheckPoint.ViewModels
             set { lista = value; }
         }
 
-
-        
-
-
-
         public HomeViewModel()
         {
             _relatorioRepository = new RelatorioRepository();
 
-            AdicionarRelatorio();
+            //AdicionarRelatorio();
             ListarRelatorios();
             
         }
 
         public  void ListarRelatorios()
         {       
-            lista = _relatorioRepository.GetRelatorios(1);
+            lista = _relatorioRepository.GetRelatorios();
             
         }
 
@@ -72,7 +67,7 @@ namespace CheckPoint.ViewModels
             relatorio.TempoJornada = new DateTime(2022, 07, 07, 15, 16, 10);
             relatorio.Saldo = new DateTime(2022, 07, 07, 15, 16, 10);
             relatorio.Status = "Ativo";
-            relatorio.Fk_IdUsuario = 1;
+            relatorio.Fk_IdUsuario = Guid.Parse("f06e6eee-579f-4dda-a167-054661577e1a");
             relatorio.Ativo = 1;
             relatorio.Alteracao = null;
             

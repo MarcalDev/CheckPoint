@@ -18,10 +18,15 @@
 
             <Image Source="drawable/background2.png" Grid.Row="0" Grid.RowSpan="3" VerticalOptions="StartAndExpand"  />
 
-            <Frame BorderColor="LightGray" Grid.Row="0" BackgroundColor="White" CornerRadius="25" VerticalOptions="StartAndExpand" HeightRequest="150" HasShadow="True"/>
+            <!--Header-->
+            <Frame BorderColor="LightGray" Grid.Row="0" BackgroundColor="White" CornerRadius="25" VerticalOptions="StartAndExpand" HeightRequest="150" HasShadow="True">
+                
+            </Frame>
             
+            <!-- Footer-->
             <Frame BorderColor="LightGray" Grid.Row="2" BackgroundColor="White" CornerRadius="25" VerticalOptions="End" HeightRequest="60" HasShadow="True"/>
 
+            <!--Button add-->
             <Button Text="+" Grid.Row="1" Margin="0,0,0,42" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="70" WidthRequest="70" Style="{StaticResource ButtonRedondo}"/>
 
 

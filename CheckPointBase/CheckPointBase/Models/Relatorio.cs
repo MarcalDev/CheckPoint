@@ -22,6 +22,6 @@ namespace CheckPointBase.Models
         public string Status { get; set; }
 
         [Column("USUARIO_ID")]
-        public int Fk_IdUsuario { get; set; }
+        public Guid Fk_IdUsuario { get; set; }
     }
 }
