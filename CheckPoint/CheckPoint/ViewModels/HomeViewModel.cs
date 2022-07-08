@@ -17,8 +17,7 @@ namespace CheckPoint.ViewModels
         private readonly RelatorioRepository _relatorioRepository;
         public INavigation Navigation { get; set; }
 
-        public List<Relatorio> lista;
-
+        
         public ICommand DetalheRelatorioCommand { get; set; }
 
         private Guid idRelatorio;
@@ -37,6 +36,17 @@ namespace CheckPoint.ViewModels
             set { relatorioItem = value; }
         }
 
+        private List<Relatorio> lista;
+
+        public List<Relatorio> Lista
+        {
+            get { return lista; }
+            set { lista = value; }
+        }
+
+
+        
+
 
 
         public HomeViewModel()
@@ -54,6 +64,7 @@ namespace CheckPoint.ViewModels
             
         }
 
+        // Uso apenas para dev
         public void AdicionarRelatorio()
         {
             Relatorio relatorio = new Relatorio();

@@ -26,7 +26,7 @@
 
 
 
-            <ListView ItemsSource="{Binding lista}" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
+            <ListView ItemsSource="{Binding Lista}" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>                            

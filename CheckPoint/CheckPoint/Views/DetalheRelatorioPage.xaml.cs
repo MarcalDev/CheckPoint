@@ -20,7 +20,9 @@ namespace CheckPoint.Views
             InitializeComponent();
 
             _detalheRelatorioViewModel = BindingContext as DetalheRelatorioViewModel;
-            
+            _detalheRelatorioViewModel.RelatorioItem = relatorio;
+
+
         }
     }
 }

@@ -14,11 +14,11 @@ namespace CheckPointBase.Data.Repository
         {
             DbContext = CheckPointContext.Current;
         }
-        public List<Ponto> GetPontosByRelatorio(int relatorioId, int usuarioId)
+        public List<Ponto> GetPontosByRelatorio(Guid relatorioId)
         {
             try
             {
-                var pontos = _dbContext.Conexao.Query<Ponto>("SELECT * FROM PONTO WHERE RELATORIO_ID = ? AND USUARIO_ID = ?", relatorioId, usuarioId);
+                var pontos = _dbContext.Conexao.Query<Ponto>("SELECT * FROM PONTO WHERE RELATORIO_ID = ?", relatorioId);
                 
                 return pontos;
             }

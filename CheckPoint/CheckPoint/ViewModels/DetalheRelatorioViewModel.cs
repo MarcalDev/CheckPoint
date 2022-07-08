@@ -1,4 +1,5 @@
-﻿using CheckPointBase.Models;
+﻿using CheckPointBase.Data.Repository;
+using CheckPointBase.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,13 +11,15 @@ namespace CheckPoint.ViewModels
 
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        private readonly PontoRepository _pontoRepository;
 
         private Relatorio relatorioItem;
 
         public Relatorio RelatorioItem
         {
             get { return relatorioItem; }
-            set { relatorioItem = value; }
+            set { relatorioItem = value; 
+                  PropertyChanged(this, new PropertyChangedEventArgs("RelatorioItem")); }
         }
 
 
@@ -28,7 +31,31 @@ namespace CheckPoint.ViewModels
             set { idRelatorio = value; }
         }
 
+        private List<Ponto> pontos;
+
+        public List<Ponto> Pontos
+        {
+            get { return pontos; }
+            set { pontos = value; }
+        }
+
         public DetalheRelatorioViewModel()
+        {
+            _pontoRepository = new PontoRepository();
+
+
+            ListarPontos();
+
+
+        }
+
+        public void ListarPontos()
+        {
+            pontos = _pontoRepository.GetPontosByRelatorio(RelatorioItem.Id);
+        }
+
+        // Uso apenas para dev
+        public void AdicionarPonto()
         {
 
         }
