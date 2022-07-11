@@ -17,11 +17,25 @@ namespace CheckPoint.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         private readonly RelatorioRepository _relatorioRepository;
+        private readonly PontoRepository _pontoRepository;
+
         public INavigation Navigation { get; set; }
 
         
         public ICommand DetalheRelatorioCommand { get; set; }
         public ICommand CadastraPontoCommand { get; set; }
+
+        private DateTime _dataAtual;
+
+        public DateTime DataAtual
+        {
+            get { return _dataAtual; }
+            set
+            {
+                _dataAtual = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("HoraAtual"));
+            }
+        }
 
         private Guid idRelatorio;
 
@@ -50,18 +64,69 @@ namespace CheckPoint.ViewModels
         public HomeViewModel()
         {
             _relatorioRepository = new RelatorioRepository();
-
+            _pontoRepository = new PontoRepository();
 
             //AdicionarRelatorio();
             ListarRelatorios();
+            CarregaHorario();
 
             CadastraPontoCommand = new Command(CadastraPonto);
         }
 
+
         public void CadastraPonto()
         {
-            App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp());
+            string hojeLocal = _dataAtual.ToString("dd/MM/yyyy");
+
+            Ponto LastPonto = new Ponto();
+            LastPonto = _pontoRepository.GetLastPonto();
+
+            // Se existir um ponto anterior
+            if (LastPonto != null)
+            {
+                string LastPontoDateInicial = LastPonto.DataInicio.ToString("dd/MM/yyyy");
+
+                string LastPontoDateFinal = LastPonto.DataFim.ToString();
+
+                string dataDefault = "01/01/0001 00:00:00";
+
+                //Caso seja o primeiro ponto do dia
+                if (hojeLocal != LastPontoDateInicial)
+                {
+                    App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp());
+                }
+
+                
+
+                else
+                {
+                    if (LastPontoDateFinal != dataDefault)
+                    {
+                        App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp());
+                    }
+
+                    else
+                    {
+                        App.Current.MainPage.Navigation.ShowPopup(new FinalizaPontoPopUp(LastPonto));
+                    }
+                }
+
+                //Caso não seja o primeiro ponto do dia
+
+                // Caso o último ponto não tenha sido finalizado
+                
+            }
+            else
+            {
+                Guid IdRelatorio = AdicionarRelatorio();
+
+                AdicionarPonto(IdRelatorio);
+            }
+
+
+            
         }
+
 
         public  void ListarRelatorios()
         {       
@@ -69,21 +134,35 @@ namespace CheckPoint.ViewModels
             
         }
 
-        // Uso apenas para dev
-        public void AdicionarRelatorio()
+        public Guid AdicionarRelatorio()
         {
-            Relatorio relatorio = new Relatorio();
-            relatorio.Data = new DateTime(2022, 07, 07, 15, 16, 10);
-            relatorio.TempoJornada = new DateTime(2022, 07, 07, 15, 16, 10);
-            relatorio.Saldo = new DateTime(2022, 07, 07, 15, 16, 10);
-            relatorio.Status = "Ativo";
-            relatorio.Fk_IdUsuario = Guid.Parse("f06e6eee-579f-4dda-a167-054661577e1a");
-            relatorio.Ativo = 1;
-            relatorio.Alteracao = null;
-            
+            Guid RelatorioId;
+            try
+            {
+                Relatorio relatorio = new Relatorio();
+                relatorio.Data = DataAtual;
+                relatorio.Status = "Ativo";
+                //relatorio.Fk_IdUsuario = Guid.Parse("f06e6eee-579f-4dda-a167-054661577e1a");
+                relatorio.Ativo = 1;
+                relatorio.Id = Guid.NewGuid();
+                relatorio.Alteracao = null;
 
-            var p = _relatorioRepository.InsertOrReplaceRelatorio(relatorio);
+                var p = _relatorioRepository.InsertOrReplaceRelatorio(relatorio);
+
+                RelatorioId = relatorio.Id;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
+            }
+
+            return RelatorioId;
         }
+
+
 
         public void NavegaDetalheRelatorio(Relatorio relatorio)
         {
@@ -91,5 +170,31 @@ namespace CheckPoint.ViewModels
             Navigation.PushAsync(new DetalheRelatorioPage(relatorio));
 
         }
+
+        public void AdicionarPonto(Guid IdRelatorio)
+        {
+            try
+            {
+                Ponto ponto = new Ponto();
+                ponto.DataInicio = DataAtual;
+                ponto.Local = "Endereco";
+                ponto.Fk_IdRelatorio = IdRelatorio;
+                ponto.Ativo = 1;
+                ponto.Alteracao = null;
+
+                var p = _pontoRepository.InsertOrReplacePonto(ponto);
+            }
+            catch (Exception ex)
+            {
+                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
+            }
+        }
+
+        public void CarregaHorario()
+        {
+            _dataAtual = DateTime.Now;
+        }
+
+
     }
 }

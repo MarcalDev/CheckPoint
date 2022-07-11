@@ -16,6 +16,7 @@ namespace CheckPoint.ViewModels
         private readonly PontoRepository _pontoRepository;
         private readonly RelatorioRepository _relatorioRepository;
         public ICommand CadastraPontoCommand { get; set; }
+        
 
         private DateTime _dataAtual;
 
@@ -35,6 +36,7 @@ namespace CheckPoint.ViewModels
             _pontoRepository = new PontoRepository();
 
             CadastraPontoCommand = new Command(VerificaPonto);
+                        
         }
 
         //public void cadastrarPonto(Guid idUsuario)
@@ -44,47 +46,55 @@ namespace CheckPoint.ViewModels
 
         public void VerificaPonto()
         {
-            try
-            {
-                string hojeLocal = _dataAtual.ToString("dd/MM/yyyy");
+            //try
+            //{
+            //    string hojeLocal = _dataAtual.ToString("dd/MM/yyyy");
 
-                Ponto LastPonto = new Ponto();
-                LastPonto = _pontoRepository.GetLastPonto();
+            //    Ponto LastPonto = new Ponto();
+            //    LastPonto = _pontoRepository.GetLastPonto();
 
-                if(LastPonto != null)
-                {
-                    string LastPontoDate = LastPonto.DataInicio.ToString("dd/MM/yyyy");
+            //    // Se existir um ponto anterior
+            //    if(LastPonto != null)
+            //    {
+            //        string LastPontoDate = LastPonto.DataInicio.ToString("dd/MM/yyyy");
 
-                    //Caso seja o primeiro ponto do dia
-                    if (hojeLocal != LastPontoDate)
-                    {
-                        Guid IdRelatorio = AdicionarRelatorio();
+            //        //Caso seja o primeiro ponto do dia
+            //        if (hojeLocal != LastPontoDate)
+            //        {
+            //            Guid IdRelatorio = AdicionarRelatorio();
 
-                        AdicionarPonto(IdRelatorio);
+            //            AdicionarPonto(IdRelatorio);
 
-                    }
+            //        }
 
-                    //Caso não seja o primeiro ponto do dia
-                    else
-                    {
-                        AdicionarPonto(LastPonto.Fk_IdRelatorio);
-                    }
-                }
-                else
-                {
-                    Guid IdRelatorio = AdicionarRelatorio();
+            //        //Caso não seja o primeiro ponto do dia
 
-                    AdicionarPonto(IdRelatorio);
-                }
+            //        // Caso o último ponto não tenha sido finalizado
+            //        if(LastPonto.DataFim != null)
+            //        {
+
+            //        }
+
+            //        else
+            //        {
+            //            AdicionarPonto(LastPonto.Fk_IdRelatorio);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Guid IdRelatorio = AdicionarRelatorio();
+
+            //        AdicionarPonto(IdRelatorio);
+            //    }
                 
                 
                 
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
-            }
+            //    App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
+            //}
 
             
         }

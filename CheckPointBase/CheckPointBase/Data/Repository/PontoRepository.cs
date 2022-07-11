@@ -101,5 +101,18 @@ namespace CheckPointBase.Data.Repository
                 throw e;
             }
         }
-    }
+
+        public bool SetDataFimPonto(Guid pontoId, string dataFim)
+        {
+            try
+            {
+               _dbContext.Conexao.FindWithQuery<Ponto>("UPDATE PONTO SET DT_FIM = ? WHERE Id = ?", pontoId);
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
 }
