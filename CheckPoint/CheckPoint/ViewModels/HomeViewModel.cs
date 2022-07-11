@@ -48,9 +48,9 @@ namespace CheckPoint.ViewModels
         {
             _relatorioRepository = new RelatorioRepository();
 
-            //AdicionarRelatorio();
+            AdicionarRelatorio();
             ListarRelatorios();
-            
+
         }
 
         public  void ListarRelatorios()

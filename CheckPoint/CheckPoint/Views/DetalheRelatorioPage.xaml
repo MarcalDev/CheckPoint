@@ -23,23 +23,23 @@
             <Frame BorderColor="LightGray" Grid.Row="0" BackgroundColor="White" CornerRadius="25" VerticalOptions="StartAndExpand" HeightRequest="150" HasShadow="True">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.6*"/>
                         <RowDefinition Height="0.4*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="1" TextColor="Black" FontSize="34" FontAttributes="Bold" FontFamily="MontserratBold" Margin="0,0,0,0" VerticalOptions="Start">
+                    <Label Grid.Row="1" TextColor="Black" HorizontalTextAlignment="Start" HorizontalOptions="Start" FontSize="34" FontAttributes="Bold" FontFamily="MontserratBold" Margin="0,0,0,0" VerticalOptions="Start">
                         <Label.Text>
                             Marcações do dia
                         </Label.Text>
                     </Label>
 
-                    <Label Text="08/07/2022" Grid.Row="2" FontAttributes="Bold" FontFamily="MontserratBold" FontSize="20" TextColor="Black"/>
+                    <Label Grid.Row="2" Text="{Binding relatorioItem.Saldo}" TextColor="Black" HorizontalTextAlignment="Start" HorizontalOptions="Start" FontFamily="MontserratBold" Margin="0,0,0,0" VerticalOptions="Start"/>
 
 
 
 
-                    <Grid Grid.Row="0">
+                    <Grid Grid.Row="0" Padding="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="0.8*"/>
@@ -50,9 +50,9 @@
                         </Grid.ColumnDefinitions>
 
 
-                        <Frame CornerRadius="20" HorizontalOptions="Start" HeightRequest="40" VerticalOptions="Center"/>
+                        <Frame CornerRadius="25" Grid.RowSpan="2" HorizontalOptions="Center" HeightRequest="5" WidthRequest="5" VerticalOptions="Center"/>
                         <Label Grid.Column="1" Grid.Row="0" Text="João Pedro" FontSize="16" TextColor="Black" VerticalOptions="Center" />
-                        <Label Grid.Column="1" Grid.Row="1" Text="Gama Soluções" FontSize="11" TextColor="Black" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Margin="0" Grid.Row="1" Text="Gama Soluções" FontSize="11" TextColor="Black" VerticalOptions="Center"/>
                     </Grid>
 
 
