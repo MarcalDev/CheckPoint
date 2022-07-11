@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckPoint.Views.HomePage"
              xmlns:local="clr-namespace:CheckPoint.ViewModels"
+
              NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
         <local:HomeViewModel/>
@@ -63,7 +64,23 @@
 
 
 
-            <ListView ItemsSource="{Binding Lista}" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
+            <Label Text="&#xf017;" Grid.Row="1" HorizontalTextAlignment="End" HorizontalOptions="End" VerticalTextAlignment="Center" VerticalOptions="End" TextColor="Gray" FontSize="11" Opacity="0.85">
+                <Label.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String" Android="fa-solid-900.ttf#Font Awesome 5 Free Solid" 
+                                   
+                                iOS="Font Awesome 5 Free"/>
+                </Label.FontFamily>
+
+            </Label>
+
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FontAwesomeRegular" Glyph="{x:Static fontAwesome:FontAwesomeIcons.ThumbsUp}"/>
+                </Image.Source>
+            </Image>-->
+                
+            
+            <!--<ListView ItemsSource="{Binding Lista}" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>                            
@@ -98,7 +115,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </ListView>-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>

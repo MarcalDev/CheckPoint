@@ -12,7 +12,9 @@ namespace CheckPoint.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NjczMTYwQDMyMzAyZTMyMmUzMEw0MUNnRmFnVmQvazYza00xRGVOSVZvUEM5b3gwU3IvbkZyU0l5TFVFTGM9");
             base.OnCreate(savedInstanceState);
+
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
