@@ -23,8 +23,9 @@ namespace CheckPoint.ViewModels
         public TabbedViewModel()
         {
             Items = new TabItemCollection();
-            Items.Add(new SfTabItem { Content = new HomePage().Content, Title = "&#xf017;", FontIconFontFamily= "FontAwesome2", TitleFontFamily = "FontAwesome2" });
-            Items.Add(new SfTabItem { Content = new CadastroPontoPage().Content, Title = "Page2", TitleFontFamily = "FontAwesome" });
+        
+            Items.Add(new SfTabItem { Content = new HomePage().Content, Title="Histórico"});
+            Items.Add(new SfTabItem { Content = new CadastroPontoPage().Content, Title = "Usuario"});
         
 
 

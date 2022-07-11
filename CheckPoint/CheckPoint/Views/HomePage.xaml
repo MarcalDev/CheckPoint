@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckPoint.Views.HomePage"
+             xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+             xmlns:popup="clr-namespace:CheckPoint.Views.PopUp"
              xmlns:local="clr-namespace:CheckPoint.ViewModels"
 
              NavigationPage.HasNavigationBar="False">
@@ -12,9 +14,9 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2.5*"/>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="6.5*"/>
+                
             </Grid.RowDefinitions>
 
             <Image Source="drawable/background2.png" Grid.Row="0" Grid.RowSpan="3" VerticalOptions="StartAndExpand"  />
@@ -57,21 +59,15 @@
             </Frame>
             
             <!-- Footer-->
-            <Frame BorderColor="LightGray" Grid.Row="2" BackgroundColor="White" CornerRadius="25" VerticalOptions="End" HeightRequest="60" HasShadow="True"/>
+            
 
             <!--Button add-->
-            <Button Text="+" Grid.Row="1" Margin="0,0,0,42" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="70" WidthRequest="70" Style="{StaticResource ButtonRedondo}"/>
+           
 
 
 
-            <Label Text="&#xf017;" Grid.Row="1" HorizontalTextAlignment="End" HorizontalOptions="End" VerticalTextAlignment="Center" VerticalOptions="End" TextColor="Gray" FontSize="11" Opacity="0.85">
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String" Android="fa-solid-900.ttf#Font Awesome 5 Free Solid" 
-                                   
-                                iOS="Font Awesome 5 Free"/>
-                </Label.FontFamily>
+  
 
-            </Label>
 
             <!--<Image>
                 <Image.Source>
@@ -80,7 +76,7 @@
             </Image>-->
                 
             
-            <!--<ListView ItemsSource="{Binding Lista}" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
+            <ListView ItemsSource="{Binding Lista}" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>                            
@@ -115,7 +111,9 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>-->
+            </ListView>
+
+            <Button Command="{Binding CadastraPontoCommand}" Text="+" Grid.Row="1" Margin="0" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="70" WidthRequest="70" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

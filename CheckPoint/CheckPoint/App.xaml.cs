@@ -14,7 +14,7 @@ namespace CheckPoint
 
             InitializeComponent();
 
-            MainPage = new NavigationPage(new CheckPoint.Views.TabbedPage());
+            MainPage = new NavigationPage(new CheckPoint.Views.LoginPage());
         }
 
         protected override void OnStart()

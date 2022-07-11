@@ -7,6 +7,8 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Extensions;
+using CheckPoint.Views.PopUp;
 
 namespace CheckPoint.ViewModels
 {
@@ -19,6 +21,7 @@ namespace CheckPoint.ViewModels
 
         
         public ICommand DetalheRelatorioCommand { get; set; }
+        public ICommand CadastraPontoCommand { get; set; }
 
         private Guid idRelatorio;
 
@@ -48,9 +51,16 @@ namespace CheckPoint.ViewModels
         {
             _relatorioRepository = new RelatorioRepository();
 
-            AdicionarRelatorio();
+
+            //AdicionarRelatorio();
             ListarRelatorios();
 
+            CadastraPontoCommand = new Command(CadastraPonto);
+        }
+
+        public void CadastraPonto()
+        {
+            App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp());
         }
 
         public  void ListarRelatorios()

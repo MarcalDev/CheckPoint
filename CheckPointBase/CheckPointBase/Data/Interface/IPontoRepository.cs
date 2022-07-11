@@ -13,5 +13,6 @@ namespace CheckPointBase.Data.Interface
         List<Ponto> ListaPontosRecentes(Usuario usuarioId);
         bool InsertOrReplacePonto(Ponto ponto);
         List<Ponto> ListaTodosPontos();
+        Ponto GetLastPonto();
     }
 }

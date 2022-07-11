@@ -3,12 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
              xmlns:viewModel="clr-namespace:CheckPoint.ViewModels"
-             x:Class="CheckPoint.Views.TabbedPage">
+             x:Class="CheckPoint.Views.TabbedPage"
+             NavigationPage.HasNavigationBar="False">
 
     <ContentPage.BindingContext>
         <viewModel:TabbedViewModel/>
     </ContentPage.BindingContext>
+    
     <ContentPage.Content>
-        <tabView:SfTabView Items="{Binding Items}" BackgroundColor="White" TabHeaderPosition="Bottom" VisibleHeaderCount="-1" />
+        <tabView:SfTabView Items="{Binding Items}" DisplayMode="Text" BackgroundColor="White" TabHeaderPosition="Bottom" VisibleHeaderCount="-1" />
     </ContentPage.Content>
+
 </ContentPage>

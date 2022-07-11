@@ -13,7 +13,16 @@ namespace CheckPoint.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private readonly PontoRepository _pontoRepository;
 
-        public Relatorio relatorioItem;  
+        public Relatorio relatorioItem;
+
+        //private Relatorio relatorioItem;
+
+        //public Relatorio RelatorioItem
+        //{
+        //    get { return relatorioItem; }
+        //    set { relatorioItem = value; }
+        //}
+
 
         private Guid idRelatorio;
 

@@ -23,6 +23,7 @@ namespace CheckPoint.Views
             _detalheRelatorioViewModel.relatorioItem = relatorio;
             _detalheRelatorioViewModel.CarregaDados();
 
+            LblDataTitulo.Text = _detalheRelatorioViewModel.relatorioItem.Data.ToString("dd/MM/yyyy");
             ListaPontos.ItemsSource = _detalheRelatorioViewModel.Pontos;
 
         }

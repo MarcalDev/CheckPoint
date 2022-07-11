@@ -88,6 +88,18 @@ namespace CheckPointBase.Data.Repository
             }
         }
 
+        public Ponto GetLastPonto()
+        {
+            try
+            {
+                var ponto = _dbContext.Conexao.FindWithQuery<Ponto>("SELECT * FROM PONTO ORDER BY DT_INICIO DESC LIMIT 1");
+                return ponto;
+            }
+            catch (Exception e)
+            {
 
+                throw e;
+            }
+        }
     }
 }
