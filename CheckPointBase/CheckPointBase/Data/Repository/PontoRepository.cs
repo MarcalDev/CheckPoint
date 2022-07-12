@@ -19,7 +19,7 @@ namespace CheckPointBase.Data.Repository
             try
             {
                 var pontos = _dbContext.Conexao.Query<Ponto>("SELECT * FROM PONTO WHERE RELATORIO_ID = ?", relatorioId);
-                
+
                 return pontos;
             }
             catch (Exception ex)
@@ -54,8 +54,23 @@ namespace CheckPointBase.Data.Repository
                     _novoPonto.DbContext.Conexao.InsertOrReplace(ponto);
                     return true;
                 }
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
+                throw e;
+            }
+        }
+
+        public bool SetDataFimPonto(Guid pontoId, DateTime dataFim)
+        {
+            try
+            {
+                _dbContext.Conexao.FindWithQuery<Ponto>("UPDATE PONTO SET DT_FIM = ? WHERE Id = ?", dataFim, pontoId);
+                return true;
+            }
+            catch (Exception e)
+            {
+
                 throw e;
             }
         }
@@ -65,10 +80,10 @@ namespace CheckPointBase.Data.Repository
             try
             {
                 var pontos = _dbContext.Conexao.Query<Ponto>("SELECT * FROM PONTO WHERE USUARIO_ID = ?", usuarioId);
-                
+
                 return pontos;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -102,17 +117,6 @@ namespace CheckPointBase.Data.Repository
             }
         }
 
-        public bool SetDataFimPonto(Guid pontoId, string dataFim)
-        {
-            try
-            {
-               _dbContext.Conexao.FindWithQuery<Ponto>("UPDATE PONTO SET DT_FIM = ? WHERE Id = ?", pontoId);
-                return true;
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-            }
-        }
+        
+    }
 }

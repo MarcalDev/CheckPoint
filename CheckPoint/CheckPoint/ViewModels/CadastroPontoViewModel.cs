@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 
 namespace CheckPoint.ViewModels
@@ -16,7 +17,16 @@ namespace CheckPoint.ViewModels
         private readonly PontoRepository _pontoRepository;
         private readonly RelatorioRepository _relatorioRepository;
         public ICommand CadastraPontoCommand { get; set; }
-        
+        public INavigation Navigation { get; set; }
+
+        private Guid idRelatorio;
+
+        public Guid IdRelatorio
+        {
+            get { return idRelatorio; }
+            set { idRelatorio = value; }
+        }
+
 
         private DateTime _dataAtual;
 
@@ -46,57 +56,20 @@ namespace CheckPoint.ViewModels
 
         public void VerificaPonto()
         {
-            //try
-            //{
-            //    string hojeLocal = _dataAtual.ToString("dd/MM/yyyy");
+            try
+            {
+               AdicionarPonto(IdRelatorio);
+               
 
-            //    Ponto LastPonto = new Ponto();
-            //    LastPonto = _pontoRepository.GetLastPonto();
 
-            //    // Se existir um ponto anterior
-            //    if(LastPonto != null)
-            //    {
-            //        string LastPontoDate = LastPonto.DataInicio.ToString("dd/MM/yyyy");
+            }
+            catch (Exception ex)
+            {
 
-            //        //Caso seja o primeiro ponto do dia
-            //        if (hojeLocal != LastPontoDate)
-            //        {
-            //            Guid IdRelatorio = AdicionarRelatorio();
+                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
+            }
 
-            //            AdicionarPonto(IdRelatorio);
 
-            //        }
-
-            //        //Caso não seja o primeiro ponto do dia
-
-            //        // Caso o último ponto não tenha sido finalizado
-            //        if(LastPonto.DataFim != null)
-            //        {
-
-            //        }
-
-            //        else
-            //        {
-            //            AdicionarPonto(LastPonto.Fk_IdRelatorio);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        Guid IdRelatorio = AdicionarRelatorio();
-
-            //        AdicionarPonto(IdRelatorio);
-            //    }
-                
-                
-                
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
-            //}
-
-            
         }
 
 

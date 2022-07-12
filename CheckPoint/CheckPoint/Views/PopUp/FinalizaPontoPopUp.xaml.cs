@@ -21,8 +21,8 @@ namespace CheckPoint.Views.PopUp
 
             _finalizaPontoViewModel = BindingContext as FinalizaPontoViewModel;
 
-            _finalizaPontoViewModel.CarregaDados();
-            _finalizaPontoViewModel.PontoId = ponto;
+            //_finalizaPontoViewModel.CarregaDados();
+            _finalizaPontoViewModel.Ponto = ponto;
 
             LblHoraAtual.Text = DateTime.Now.ToString("hh:mm:ss");
         }

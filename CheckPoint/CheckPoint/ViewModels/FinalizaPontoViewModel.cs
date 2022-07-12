@@ -23,7 +23,15 @@ namespace CheckPoint.ViewModels
         public Ponto Ponto
         {
             get { return ponto; }
-            set { ponto = value; }
+            set { ponto = value; PropertyChanged(this, new PropertyChangedEventArgs("Ponto")); }
+        }
+
+        private Relatorio relatorio;
+
+        public Relatorio Relatorio
+        {
+            get { return relatorio; }
+            set { relatorio = value; PropertyChanged(this, new PropertyChangedEventArgs("Relatorio")); }
         }
 
         public FinalizaPontoViewModel()
@@ -31,13 +39,31 @@ namespace CheckPoint.ViewModels
             _relatorioRepository = new RelatorioRepository();
             _pontoRepository = new PontoRepository();
 
-            FinalizaPontoCommand = new Command();
+            FinalizaPontoCommand = new Command(FinalizarPonto);
         }
 
         public void FinalizarPonto()
         {
-            string dataFim = DateTime.Now.ToString("YYYYMMDD");
+            var dataFim = DateTime.Now;
             var p = _pontoRepository.SetDataFimPonto(ponto.Id, dataFim);
+
+            ContarSaldo();
+        }
+
+        public void ContarSaldo()
+        {         
+
+            relatorio = _relatorioRepository.GetRelatorioById(ponto.Fk_IdRelatorio);
+
+            TimeSpan TempoAtual = relatorio.Saldo;
+            TimeSpan tempoInicial = TimeSpan.Parse(ponto.DataInicio.ToString("hh:mm:ss"));
+            TimeSpan tempoFinal = TimeSpan.Parse(ponto.DataFim.ToString("hh:mm:ss"));
+
+            TimeSpan saldo = TempoAtual + (tempoFinal - tempoInicial);
+
+            _relatorioRepository.UpdateSaldoRelatorio(ponto.Fk_IdRelatorio, saldo);
+
+            
         }
     }
 }

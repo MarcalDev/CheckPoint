@@ -5,7 +5,7 @@
              xmlns:viewModel="clr-namespace:CheckPoint.ViewModels"
              xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <xct:Popup.BindingContext>
-        <viewModel:CadastroPontoViewModel/>
+        <viewModel:FinalizaPontoViewModel/>
     </xct:Popup.BindingContext>
 
     <StackLayout BackgroundColor="Transparent" VerticalOptions="CenterAndExpand">

@@ -25,5 +25,6 @@ namespace CheckPointBase.Models
         [Column("RELATORIO_ID")]
         public Guid Fk_IdRelatorio { get; set; }
 
+
     }
 }

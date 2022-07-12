@@ -15,7 +15,7 @@ namespace CheckPoint.Views.PopUp
     public partial class CadastroPontoPopUp : Popup
     {
         CadastroPontoViewModel _cadastroPontoViewModel;
-        public CadastroPontoPopUp()
+        public CadastroPontoPopUp(Guid IdRelatorio)
         {
             InitializeComponent();
 
@@ -24,6 +24,8 @@ namespace CheckPoint.Views.PopUp
             _cadastroPontoViewModel.CarregaDados();
 
             LblHoraAtual.Text = DateTime.Now.ToString("hh:mm:ss");
+
+            _cadastroPontoViewModel.IdRelatorio = IdRelatorio;
         }
     }
 }

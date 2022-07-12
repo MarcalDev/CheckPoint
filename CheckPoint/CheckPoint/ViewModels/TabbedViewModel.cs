@@ -25,7 +25,7 @@ namespace CheckPoint.ViewModels
             Items = new TabItemCollection();
         
             Items.Add(new SfTabItem { Content = new HomePage().Content, Title="Histórico"});
-            Items.Add(new SfTabItem { Content = new CadastroPontoPage().Content, Title = "Usuario"});
+            Items.Add(new SfTabItem { Content = new CadastroUsuarioPage().Content, Title = "Usuario"});
         
 
 

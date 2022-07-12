@@ -57,9 +57,7 @@ namespace CheckPoint.ViewModels
 
         public void NavegaPaginaLogin()
         {
-            Navigation.PushAsync(new LoginPage());
-
-            
+            Navigation.PushAsync(new LoginPage());           
 
         }
 
@@ -73,7 +71,13 @@ namespace CheckPoint.ViewModels
             user.Email = Email;
             user.Senha = Senha;
 
-            _usuarioRepository.InsertOrReplaceUsuario(user);
+            var p = _usuarioRepository.InsertOrReplaceUsuario(user);
+
+            if (p)
+            {
+                NavegaPaginaLogin();
+            }
+            
         }
     }
 }

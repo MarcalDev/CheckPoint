@@ -58,7 +58,7 @@ namespace CheckPoint.ViewModels
         public List<Relatorio> Lista
         {
             get { return lista; }
-            set { lista = value; }
+            set { lista = value; PropertyChanged(this, new PropertyChangedEventArgs("Lista")); }
         }
 
         public HomeViewModel()
@@ -93,16 +93,14 @@ namespace CheckPoint.ViewModels
                 //Caso seja o primeiro ponto do dia
                 if (hojeLocal != LastPontoDateInicial)
                 {
-                    App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp());
-                }
-
-                
+                    App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(LastPonto.Fk_IdRelatorio));
+                }                
 
                 else
                 {
                     if (LastPontoDateFinal != dataDefault)
                     {
-                        App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp());
+                        App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(LastPonto.Fk_IdRelatorio));
                     }
 
                     else
@@ -121,6 +119,7 @@ namespace CheckPoint.ViewModels
                 Guid IdRelatorio = AdicionarRelatorio();
 
                 AdicionarPonto(IdRelatorio);
+
             }
 
 
