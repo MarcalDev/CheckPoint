@@ -15,12 +15,13 @@ namespace CheckPoint.Views
     public partial class HomePage : ContentPage
     {
         HomeViewModel _homeViewModel;
-        public HomePage()
+        public HomePage(Usuario userObj)
         {
             InitializeComponent();
 
             _homeViewModel = BindingContext as HomeViewModel;
             _homeViewModel.Navigation = Navigation;
+            _homeViewModel.UserObj = userObj;
 
             //ListaRelatorios.ItemsSource = _homeViewModel.lista;
         }

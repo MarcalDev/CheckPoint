@@ -87,6 +87,8 @@
 
                                         </Grid>
 
+                                        <Label Grid.Row="1" Text="{Binding Local}" TextColor="Black"/>
+
                                     </Grid>
                                 </Frame>
                             </StackLayout>

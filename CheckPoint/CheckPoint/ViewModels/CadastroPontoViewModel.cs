@@ -3,10 +3,13 @@ using CheckPointBase.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace CheckPoint.ViewModels
 {
@@ -40,13 +43,42 @@ namespace CheckPoint.ViewModels
             }
         }
 
+        private string _endereco;
+
+        public string Endereco
+        {
+            get { return _endereco; }
+            set { _endereco = value; PropertyChanged(this, new PropertyChangedEventArgs("Endereco"));}
+        }
+
+        private double latitude;
+
+        public double Latitude
+        {
+            get { return latitude; }
+            set { latitude = value; PropertyChanged(this, new PropertyChangedEventArgs("Latitude"));}
+        }
+
+        private double longitude;
+
+        public double Longitude
+        {
+            get { return longitude; }
+            set { longitude = value; PropertyChanged(this, new PropertyChangedEventArgs("Longitude"));}
+        }
+
+
+
+
+
+
         public CadastroPontoViewModel()
         {
             _relatorioRepository = new RelatorioRepository();
             _pontoRepository = new PontoRepository();
 
             CadastraPontoCommand = new Command(VerificaPonto);
-                        
+            
         }
 
         //public void cadastrarPonto(Guid idUsuario)
@@ -58,8 +90,7 @@ namespace CheckPoint.ViewModels
         {
             try
             {
-               AdicionarPonto(IdRelatorio);
-               
+               AdicionarPonto(IdRelatorio);              
 
 
             }
@@ -79,7 +110,7 @@ namespace CheckPoint.ViewModels
             {
                 Ponto ponto = new Ponto();
                 ponto.DataInicio = DataAtual;
-                ponto.Local = "Endereco";
+                ponto.Local = _endereco;
                 ponto.Fk_IdRelatorio = IdRelatorio;
                 ponto.Ativo = 1;
                 ponto.Alteracao = null;
@@ -88,7 +119,7 @@ namespace CheckPoint.ViewModels
             }
             catch (Exception ex)
             {
-                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
+                 App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
             }
         }
 
@@ -97,7 +128,9 @@ namespace CheckPoint.ViewModels
         {
             Guid RelatorioId;
             try
-            {
+            {              
+
+
                 Relatorio relatorio = new Relatorio();
                 relatorio.Data = DataAtual;
                 relatorio.Status = "Ativo";
@@ -131,6 +164,35 @@ namespace CheckPoint.ViewModels
         {
             CarregaHorario();
         }
+
+        public async Task GeocodEnderecoAsync()
+        {          
+
+            try
+            {
+                
+                Geocoder geoCoder = new Geocoder();
+
+                Position position = new Position(latitude, longitude);
+                IEnumerable<string> possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+                string endereco = possibleAddresses.FirstOrDefault();
+
+                _endereco = endereco;
+            }
+            catch (Exception ex)
+            {
+
+                await App.Current.MainPage.DisplayAlert("Alerta!", ex.Message, "OK");
+            }
+
+            
+        }
+
+        //public void PuxaGeo()
+        //{
+        //    GeocodEnderecoAsync().GetAwaiter();
+        //    _endereco = GeocodEnderecoAsync().GetAwaiter().GetResult();
+        //}
 
     }
 }

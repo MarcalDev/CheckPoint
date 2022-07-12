@@ -18,6 +18,15 @@ namespace CheckPoint.ViewModels
         private readonly UsuarioRepository _usuarioRepository;
         public INavigation Navigation { get; set; }
 
+        private Usuario userObj;
+
+        public Usuario UserObj
+        {
+            get { return userObj; }
+            set { userObj = value; }
+        }
+
+
         private string email { get; set; }
         public string Email
         {
@@ -59,11 +68,14 @@ namespace CheckPoint.ViewModels
         {
             
             Usuario user = _usuarioRepository.GetUsuarioByLogin(Email,Senha);
+                       
 
-            if(user != null)
+            if (user != null)
             {
                 // usuário existe
-                App.Current.MainPage = new NavigationPage(new HomePage());
+                userObj = user;
+                App.Current.MainPage = new NavigationPage(new HomePage(userObj));
+                
             }
             else
             {

@@ -25,6 +25,15 @@ namespace CheckPoint.ViewModels
         public ICommand DetalheRelatorioCommand { get; set; }
         public ICommand CadastraPontoCommand { get; set; }
 
+        private Usuario userObj;
+
+        public Usuario UserObj
+        {
+            get { return userObj; }
+            set { userObj = value; }
+        }
+
+
         private DateTime _dataAtual;
 
         public DateTime DataAtual
@@ -78,7 +87,7 @@ namespace CheckPoint.ViewModels
         {
             string hojeLocal = _dataAtual.ToString("dd/MM/yyyy");
 
-            Ponto LastPonto = new Ponto();
+             Ponto LastPonto = new Ponto();
             LastPonto = _pontoRepository.GetLastPonto();
 
             // Se existir um ponto anterior
