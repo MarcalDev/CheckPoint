@@ -26,7 +26,6 @@ namespace CheckPoint.ViewModels
             set { userObj = value; }
         }
 
-
         private string email { get; set; }
         public string Email
         {

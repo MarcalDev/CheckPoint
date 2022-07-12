@@ -89,11 +89,11 @@ namespace CheckPointBase.Data.Repository
             }
         }
 
-        public List<Ponto> ListaTodosPontos()
+        public List<Ponto> ListaTodosPontos(Guid usuarioId)
         {
             try
             {
-                var pontos = _dbContext.Conexao.Query<Ponto>("SELECT * FROM PONTO");
+                var pontos = _dbContext.Conexao.Query<Ponto>("SELECT * FROM PONTO WHERE USUARIO_ID = ?", usuarioId);
 
                 return pontos;
             }
@@ -103,11 +103,11 @@ namespace CheckPointBase.Data.Repository
             }
         }
 
-        public Ponto GetLastPonto()
+        public Ponto GetLastPonto(Guid usuarioId)
         {
             try
             {
-                var ponto = _dbContext.Conexao.FindWithQuery<Ponto>("SELECT * FROM PONTO ORDER BY DT_INICIO DESC LIMIT 1");
+                var ponto = _dbContext.Conexao.FindWithQuery<Ponto>("SELECT * FROM PONTO WHERE USUARIO_ID - ? ORDER BY DT_INICIO DESC LIMIT 1", usuarioId);
                 return ponto;
             }
             catch (Exception e)

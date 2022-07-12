@@ -30,7 +30,7 @@ namespace CheckPoint.ViewModels
         public Usuario UserObj
         {
             get { return userObj; }
-            set { userObj = value; }
+            set { userObj = value; PropertyChanged(this, new PropertyChangedEventArgs("UserObj")); }
         }
 
 
@@ -76,7 +76,7 @@ namespace CheckPoint.ViewModels
             _pontoRepository = new PontoRepository();
 
             //AdicionarRelatorio();
-            ListarRelatorios();
+            
             CarregaHorario();
 
             CadastraPontoCommand = new Command(CadastraPonto);
@@ -88,7 +88,7 @@ namespace CheckPoint.ViewModels
             string hojeLocal = _dataAtual.ToString("dd/MM/yyyy");
 
              Ponto LastPonto = new Ponto();
-            LastPonto = _pontoRepository.GetLastPonto();
+            LastPonto = _pontoRepository.GetLastPonto(userObj.Id);
 
             // Se existir um ponto anterior
             if (LastPonto != null)
@@ -138,7 +138,7 @@ namespace CheckPoint.ViewModels
 
         public  void ListarRelatorios()
         {       
-            lista = _relatorioRepository.GetRelatorios();
+            lista = _relatorioRepository.GetRelatorios(userObj.Id);
             
         }
 
@@ -175,7 +175,7 @@ namespace CheckPoint.ViewModels
         public void NavegaDetalheRelatorio(Relatorio relatorio)
         {
             
-            Navigation.PushAsync(new DetalheRelatorioPage(relatorio));
+            Navigation.PushAsync(new DetalheRelatorioPage(relatorio, userObj));
 
         }
 

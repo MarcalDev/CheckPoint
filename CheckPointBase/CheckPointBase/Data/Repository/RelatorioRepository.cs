@@ -18,7 +18,7 @@ namespace CheckPointBase.Data.Repository
         {
             try
             {
-                var relatorio = _dbContext.Conexao.FindWithQuery<Relatorio>("SELECT * FROM RELATORIO WHERE DT_RELATORIO = ?", data);
+                var relatorio = _dbContext.Conexao.FindWithQuery<Relatorio>("SELECT * FROM RELATORIO WHERE DT_RELATORIO = ? AND USUARIO_ID = ?", data, usuarioId);
 
                 return relatorio;
             }
@@ -42,11 +42,11 @@ namespace CheckPointBase.Data.Repository
             }
         }
 
-        public List<Relatorio> GetRelatorios()
+        public List<Relatorio> GetRelatorios(Guid UsuarioId)
         {
             try
             {
-                var relatorios = _dbContext.Conexao.Query<Relatorio>("SELECT * FROM RELATORIO");
+                var relatorios = _dbContext.Conexao.Query<Relatorio>("SELECT * FROM RELATORIO WHERE USUARIO_ID = ?", UsuarioId);
 
                 return relatorios;
             }

@@ -50,7 +50,7 @@
 
 
                         <Frame CornerRadius="25" Grid.RowSpan="2" HorizontalOptions="Center" HeightRequest="5" WidthRequest="5" VerticalOptions="Center"/>
-                        <Label Grid.Column="1" Grid.Row="0" Text="João Pedro" FontSize="16" TextColor="Black" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Grid.Row="0" Text="{Binding UserObj.NomeUsuario}" FontSize="16" TextColor="Black" VerticalOptions="Center" />
                         <Label Grid.Column="1" Margin="0" Grid.Row="1" Text="Gama Soluções" FontSize="11" TextColor="Black" VerticalOptions="Center"/>
                     </Grid>
                     

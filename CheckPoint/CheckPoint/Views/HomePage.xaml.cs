@@ -17,11 +17,14 @@ namespace CheckPoint.Views
         HomeViewModel _homeViewModel;
         public HomePage(Usuario userObj)
         {
+
             InitializeComponent();
 
             _homeViewModel = BindingContext as HomeViewModel;
             _homeViewModel.Navigation = Navigation;
             _homeViewModel.UserObj = userObj;
+
+            _homeViewModel.ListarRelatorios();
 
             //ListaRelatorios.ItemsSource = _homeViewModel.lista;
         }

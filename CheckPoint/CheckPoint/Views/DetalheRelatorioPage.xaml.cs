@@ -15,12 +15,13 @@ namespace CheckPoint.Views
     public partial class DetalheRelatorioPage : ContentPage
     {
         DetalheRelatorioViewModel _detalheRelatorioViewModel;
-        public DetalheRelatorioPage(Relatorio relatorio)
+        public DetalheRelatorioPage(Relatorio relatorio, Usuario userObj)
         {
             InitializeComponent();
 
             _detalheRelatorioViewModel = BindingContext as DetalheRelatorioViewModel;
             _detalheRelatorioViewModel.relatorioItem = relatorio;
+            _detalheRelatorioViewModel.UserObj = userObj;
             _detalheRelatorioViewModel.CarregaDados();
 
             LblDataTitulo.Text = _detalheRelatorioViewModel.relatorioItem.Data.ToString("dd/MM/yyyy");
