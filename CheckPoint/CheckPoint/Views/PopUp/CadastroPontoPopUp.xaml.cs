@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.CommunityToolkit.UI.Views;
 using CheckPoint.ViewModels;
+using Xamarin.Forms.Maps;
 
 namespace CheckPoint.Views.PopUp
 {
@@ -18,6 +19,10 @@ namespace CheckPoint.Views.PopUp
         public CadastroPontoPopUp(Guid IdRelatorio)
         {
             InitializeComponent();
+
+            var mapa = new Map();
+
+            MapContent.Children.Add(mapa);
 
             _cadastroPontoViewModel = BindingContext as CadastroPontoViewModel;
            

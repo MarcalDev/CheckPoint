@@ -12,3 +12,5 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("fa-solid-900.ttf", Alias = "FontAwesome2")]
 [assembly: ExportFont("font-awesome.otf", Alias = "FontAwesome")]
 
+
+
