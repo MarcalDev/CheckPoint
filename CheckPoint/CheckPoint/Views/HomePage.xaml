@@ -74,9 +74,9 @@
                     <FontImageSource FontFamily="FontAwesomeRegular" Glyph="{x:Static fontAwesome:FontAwesomeIcons.ThumbsUp}"/>
                 </Image.Source>
             </Image>-->
-                
-            
-            <ListView ItemsSource="{Binding Lista}" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
+
+
+            <ListView ItemsSource="{Binding Lista}" x:Name="ListaRelatorios" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>                            

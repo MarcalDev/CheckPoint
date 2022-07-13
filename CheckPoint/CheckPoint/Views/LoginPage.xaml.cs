@@ -20,7 +20,7 @@ namespace CheckPoint.Views
             InitializeComponent();
 
             _loginViewModel = BindingContext as LoginViewModel;
-            _loginViewModel.Navigation = Navigation;
+            _loginViewModel._navigation = Navigation;
         }
     }
 }

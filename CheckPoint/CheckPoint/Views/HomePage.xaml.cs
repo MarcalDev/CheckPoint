@@ -21,12 +21,12 @@ namespace CheckPoint.Views
             InitializeComponent();
 
             _homeViewModel = BindingContext as HomeViewModel;
-            _homeViewModel.Navigation = Navigation;
+            _homeViewModel._navigation = Navigation;
             _homeViewModel.UserObj = userObj;
 
             _homeViewModel.ListarRelatorios();
 
-            //ListaRelatorios.ItemsSource = _homeViewModel.lista;
+            ListaRelatorios.ItemsSource = _homeViewModel.ListaRelatorios;
         }
 
         

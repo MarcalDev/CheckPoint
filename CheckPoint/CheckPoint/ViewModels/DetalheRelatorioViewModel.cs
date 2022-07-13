@@ -7,66 +7,42 @@ using System.Text;
 
 namespace CheckPoint.ViewModels
 {
-    public class DetalheRelatorioViewModel : INotifyPropertyChanged
-
+    public class DetalheRelatorioViewModel : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        private readonly PontoRepository _pontoRepository;
 
-        public Relatorio relatorioItem;
+        #region -> Propriedades <-
+        private PontoRepository _pontoRepository;       
 
-        //private Relatorio relatorioItem;
-
-        //public Relatorio RelatorioItem
-        //{
-        //    get { return relatorioItem; }
-        //    set { relatorioItem = value; }
-        //}
-
+        private Relatorio relatorioItem;
         private Usuario userObj;
-
-        public Usuario UserObj
-        {
-            get { return userObj; }
-            set { userObj = value; }
-        }
-
-
         private Guid idRelatorio;
-
-        public Guid IdRelatorio
-        {
-            get { return idRelatorio; }
-            set { idRelatorio = value; }
-        }
-
         private List<Ponto> pontos;
+        #endregion
 
-        public List<Ponto> Pontos
-        {
-            get { return pontos; }
-            set { 
-                pontos = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Pontos"));
-            }
-        }
 
+        #region -> Construtor <-
         public DetalheRelatorioViewModel()
         {
             _pontoRepository = new PontoRepository();
 
-            //AdicionarPonto();
-
-            
-
-
+            //AdicionarPonto();  
         }
+        #endregion
 
+
+        #region -> Encapsulamento <-
+        public Relatorio RelatorioItem { get { return relatorioItem; } set { relatorioItem = value; OnPropertyChanged("RelatorioItem"); } }
+        public Usuario UserObj { get { return userObj; } set { userObj = value; OnPropertyChanged("UserObj"); } }
+        public Guid IdRelatorio { get { return idRelatorio; } set { idRelatorio = value; OnPropertyChanged("IdRelatorio"); } }
+        public List<Ponto> Pontos { get { return pontos; } set { pontos = value; OnPropertyChanged("Pontos"); } }
+        #endregion
+
+
+        #region -> Métodos <-
         public void ListarPontos()
         {
             pontos = _pontoRepository.GetPontosByRelatorio(relatorioItem.Id);
         }
-
         // Uso apenas para dev
         //public void AdicionarPonto()
         //{
@@ -88,7 +64,8 @@ namespace CheckPoint.ViewModels
             //AdicionarPonto();
 
             ListarPontos();
-        }
+        } 
+        #endregion
 
 
 

@@ -12,83 +12,60 @@ using CheckPoint.Views.PopUp;
 
 namespace CheckPoint.ViewModels
 {
-    public class HomeViewModel : INotifyPropertyChanged
+    public class HomeViewModel : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        #region -> Propriedades <-
+        public INavigation _navigation;
 
-        private readonly RelatorioRepository _relatorioRepository;
-        private readonly PontoRepository _pontoRepository;
-
-        public INavigation Navigation { get; set; }
-
+        private RelatorioRepository _relatorioRepository;
+        private PontoRepository _pontoRepository;
         
-        public ICommand DetalheRelatorioCommand { get; set; }
-        public ICommand CadastraPontoCommand { get; set; }
+        public Command _cadastraPontoCommand;
 
-        private Usuario userObj;
-
-        public Usuario UserObj
-        {
-            get { return userObj; }
-            set { userObj = value; PropertyChanged(this, new PropertyChangedEventArgs("UserObj")); }
-        }
-
-
+        private Usuario _userObj;
         private DateTime _dataAtual;
+        private Guid _idRelatorio;
+        private Relatorio _relatorioItem;
+        private List<Relatorio> _listaRelatorios;
+        #endregion
 
-        public DateTime DataAtual
-        {
-            get { return _dataAtual; }
-            set
-            {
-                _dataAtual = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("HoraAtual"));
-            }
-        }
 
-        private Guid idRelatorio;
-
-        public Guid IdRelatorio
-        {
-            get { return idRelatorio; }
-            set { idRelatorio = value; }
-        }
-
-        private Relatorio relatorioItem;
-
-        public Relatorio RelatorioItem
-        {
-            get { return relatorioItem; }
-            set { relatorioItem = value; }
-        }
-
-        private List<Relatorio> lista;
-
-        public List<Relatorio> Lista
-        {
-            get { return lista; }
-            set { lista = value; PropertyChanged(this, new PropertyChangedEventArgs("Lista")); }
-        }
-
+        #region -> Construtor <-
         public HomeViewModel()
         {
             _relatorioRepository = new RelatorioRepository();
             _pontoRepository = new PontoRepository();
 
             //AdicionarRelatorio();
-            
+
             CarregaHorario();
 
-            CadastraPontoCommand = new Command(CadastraPonto);
         }
+        #endregion
 
+        #region -> Encapsulamento <-
 
+        public Usuario UserObj { get { return _userObj; } set { _userObj = value; OnPropertyChanged("UserObj"); } }
+        public DateTime DataAtual { get { return _dataAtual; } set { _dataAtual = value; OnPropertyChanged("DataAtual"); } }
+        public Guid IdRelatorio { get { return _idRelatorio; } set { _idRelatorio = value; OnPropertyChanged("IdRelatorio"); } }
+        public Relatorio RelatorioItem { get { return _relatorioItem; } set { _relatorioItem = value; OnPropertyChanged("RelatorioItem"); } }
+        public List<Relatorio> ListaRelatorios { get { return _listaRelatorios; } set { _listaRelatorios = value; OnPropertyChanged("Lista"); } }
+
+        #endregion
+
+        #region -> Command's <-
+
+        public Command CadastraPontoCommand => _cadastraPontoCommand ?? (_cadastraPontoCommand = new Command(CadastraPonto));
+
+        #endregion
+
+        #region -> Métodos <-
         public void CadastraPonto()
         {
             string hojeLocal = _dataAtual.ToString("dd/MM/yyyy");
 
-             Ponto LastPonto = new Ponto();
-            LastPonto = _pontoRepository.GetLastPonto(userObj.Id);
+            Ponto LastPonto = new Ponto();
+            LastPonto = _pontoRepository.GetLastPonto(_userObj.Id);
 
             // Se existir um ponto anterior
             if (LastPonto != null)
@@ -102,14 +79,14 @@ namespace CheckPoint.ViewModels
                 //Caso seja o primeiro ponto do dia
                 if (hojeLocal != LastPontoDateInicial)
                 {
-                    App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(LastPonto.Fk_IdRelatorio));
-                }                
+                    App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(LastPonto.Fk_IdRelatorio, _userObj));
+                }
 
                 else
                 {
                     if (LastPontoDateFinal != dataDefault)
                     {
-                        App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(LastPonto.Fk_IdRelatorio));
+                        App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(LastPonto.Fk_IdRelatorio, _userObj));
                     }
 
                     else
@@ -121,7 +98,7 @@ namespace CheckPoint.ViewModels
                 //Caso não seja o primeiro ponto do dia
 
                 // Caso o último ponto não tenha sido finalizado
-                
+
             }
             else
             {
@@ -129,17 +106,17 @@ namespace CheckPoint.ViewModels
 
                 AdicionarPonto(IdRelatorio);
 
+
             }
 
 
-            
         }
 
 
-        public  void ListarRelatorios()
-        {       
-            lista = _relatorioRepository.GetRelatorios(userObj.Id);
-            
+        public void ListarRelatorios()
+        {
+            _listaRelatorios = _relatorioRepository.GetRelatorios(_userObj.Id);
+
         }
 
         public Guid AdicionarRelatorio()
@@ -150,7 +127,7 @@ namespace CheckPoint.ViewModels
                 Relatorio relatorio = new Relatorio();
                 relatorio.Data = DataAtual;
                 relatorio.Status = "Ativo";
-                //relatorio.Fk_IdUsuario = Guid.Parse("f06e6eee-579f-4dda-a167-054661577e1a");
+                relatorio.Fk_IdUsuario = _userObj.Id;
                 relatorio.Ativo = 1;
                 relatorio.Id = Guid.NewGuid();
                 relatorio.Alteracao = null;
@@ -158,7 +135,6 @@ namespace CheckPoint.ViewModels
                 var p = _relatorioRepository.InsertOrReplaceRelatorio(relatorio);
 
                 RelatorioId = relatorio.Id;
-
 
             }
             catch (Exception ex)
@@ -174,8 +150,8 @@ namespace CheckPoint.ViewModels
 
         public void NavegaDetalheRelatorio(Relatorio relatorio)
         {
-            
-            Navigation.PushAsync(new DetalheRelatorioPage(relatorio, userObj));
+
+            _navigation.PushAsync(new DetalheRelatorioPage(relatorio, _userObj));
 
         }
 
@@ -201,7 +177,8 @@ namespace CheckPoint.ViewModels
         public void CarregaHorario()
         {
             _dataAtual = DateTime.Now;
-        }
+        } 
+        #endregion
 
 
     }

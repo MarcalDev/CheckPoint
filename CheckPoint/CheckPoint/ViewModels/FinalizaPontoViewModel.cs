@@ -9,61 +9,61 @@ using Xamarin.Forms;
 
 namespace CheckPoint.ViewModels
 {
-    public class FinalizaPontoViewModel : INotifyPropertyChanged
+    public class FinalizaPontoViewModel : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        #region -> Propriedades <-
+        private PontoRepository _pontoRepository;
+        private RelatorioRepository _relatorioRepository;
 
-        private readonly PontoRepository _pontoRepository;
-        private readonly RelatorioRepository _relatorioRepository;
+        private Ponto _ponto;
+        private Relatorio _relatorio;
 
-        public ICommand FinalizaPontoCommand { get; set; }
+        private Command _finalizaPontoCommand;
+        #endregion
 
-        private Ponto ponto;
 
-        public Ponto Ponto
-        {
-            get { return ponto; }
-            set { ponto = value; PropertyChanged(this, new PropertyChangedEventArgs("Ponto")); }
-        }
-
-        private Relatorio relatorio;
-
-        public Relatorio Relatorio
-        {
-            get { return relatorio; }
-            set { relatorio = value; PropertyChanged(this, new PropertyChangedEventArgs("Relatorio")); }
-        }
-
+        #region -> Construtor <-
         public FinalizaPontoViewModel()
         {
             _relatorioRepository = new RelatorioRepository();
             _pontoRepository = new PontoRepository();
-
-            FinalizaPontoCommand = new Command(FinalizarPonto);
         }
+        #endregion
+
+        #region -> Encapsulamento <-
+        public Ponto Ponto { get { return _ponto; } set { _ponto = value; OnPropertyChanged("Ponto"); } }
+        public Relatorio Relatorio { get { return _relatorio; } set { _relatorio = value; OnPropertyChanged("Relatorio"); } }
+        #endregion
+
+        #region -> Command's <-
+        public Command FinalizaPontoCommand => _finalizaPontoCommand ?? (_finalizaPontoCommand = new Command(FinalizarPonto));
+        #endregion
+
+        #region -> Métodos <-
 
         public void FinalizarPonto()
         {
             var dataFim = DateTime.Now;
-            var p = _pontoRepository.SetDataFimPonto(ponto.Id, dataFim);
+            var p = _pontoRepository.SetDataFimPonto(_ponto.Id, dataFim);
 
             ContarSaldo();
         }
 
         public void ContarSaldo()
-        {         
+        {
 
-            relatorio = _relatorioRepository.GetRelatorioById(ponto.Fk_IdRelatorio);
+            _relatorio = _relatorioRepository.GetRelatorioById(_ponto.Fk_IdRelatorio);
 
-            TimeSpan TempoAtual = relatorio.Saldo;
-            TimeSpan tempoInicial = TimeSpan.Parse(ponto.DataInicio.ToString("hh:mm:ss"));
-            TimeSpan tempoFinal = TimeSpan.Parse(ponto.DataFim.ToString("hh:mm:ss"));
+            TimeSpan TempoAtual = _relatorio.Saldo;
+            TimeSpan tempoInicial = TimeSpan.Parse(_ponto.DataInicio.ToString("hh:mm:ss"));
+            TimeSpan tempoFinal = TimeSpan.Parse(_ponto.DataFim.ToString("hh:mm:ss"));
 
             TimeSpan saldo = TempoAtual + (tempoFinal - tempoInicial);
 
-            _relatorioRepository.UpdateSaldoRelatorio(ponto.Fk_IdRelatorio, saldo);
+            _relatorioRepository.UpdateSaldoRelatorio(_ponto.Fk_IdRelatorio, saldo);
 
-            
-        }
+
+        } 
+        #endregion
     }
 }

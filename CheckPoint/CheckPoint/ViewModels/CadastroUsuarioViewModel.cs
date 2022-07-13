@@ -10,54 +10,49 @@ using Xamarin.Forms;
 
 namespace CheckPoint.ViewModels
 {
-    public class CadastroUsuarioViewModel : INotifyPropertyChanged
+    public class CadastroUsuarioViewModel : BaseViewModel
     {
-        private readonly UsuarioRepository _usuarioRepository;
 
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        #region -> Propriedades <-
+        public INavigation _navigation;
 
-        public INavigation Navigation { get; set; }
-        public ICommand PaginaLoginCommand { get; set; }
-        public ICommand CadastroUsuarioCommand { get; set; }
+        private UsuarioRepository _usuarioRepository;
 
-        private string nome;
+        private string _nome;
+        private string _email;
+        private string _senha;
 
-        public string Nome
-        {
-            get { return nome; }
-            set { nome = value; PropertyChanged(this, new PropertyChangedEventArgs("Nome")); }
-        }
+        private Command _paginaLoginCommand;
+        private Command _cadastroUsuarioCommand;   
 
-        private string email;
+        #endregion        
+        
 
-        public string Email
-        {
-            get { return email; }
-            set { email = value; PropertyChanged(this, new PropertyChangedEventArgs("Email")); }
-        }
-
-        private string senha;
-
-        public string Senha
-        {
-            get { return senha; }
-            set { senha = value; PropertyChanged(this, new PropertyChangedEventArgs("Senha")); }
-        }
-
-
-
+        #region -> Construtor <-
         public CadastroUsuarioViewModel()
         {
-            PaginaLoginCommand = new Command(NavegaPaginaLogin);
-
-            CadastroUsuarioCommand = new Command(CadastrarUsuario);
-
             _usuarioRepository = new UsuarioRepository();
         }
+        #endregion
 
+
+        #region -> Encapsulamento <-
+        public string Nome { get { return _nome; } set { _nome = value; OnPropertyChanged("Nome"); } }
+        public string Email { get { return _email; } set { _email = value; OnPropertyChanged("Email"); } }
+        public string Senha { get { return _senha; } set { _senha = value; OnPropertyChanged("Senha"); } } 
+        #endregion
+
+
+        #region -> Command's <-
+        public Command PaginaLoginCommand => _paginaLoginCommand ?? (_paginaLoginCommand = new Command(NavegaPaginaLogin));
+        public Command CadastroUsuarioCommand => _cadastroUsuarioCommand ?? (_cadastroUsuarioCommand = new Command(CadastrarUsuario));
+
+        #endregion
+
+        #region -> Métodos <-
         public void NavegaPaginaLogin()
         {
-            Navigation.PushAsync(new LoginPage());           
+            _navigation.PushAsync(new LoginPage());
 
         }
 
@@ -77,7 +72,8 @@ namespace CheckPoint.ViewModels
             {
                 NavegaPaginaLogin();
             }
-            
-        }
+
+        } 
+        #endregion
     }
 }

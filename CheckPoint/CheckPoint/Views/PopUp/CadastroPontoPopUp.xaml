@@ -22,7 +22,7 @@
             </StackLayout>
 
         <StackLayout Grid.Row="1" VerticalOptions="Center">
-                <Label x:Name="LblEndereco" Text="AAAA" VerticalOptions="Center" TextColor="Black"/>
+                <Label x:Name="LblEndereco" Text="Endereço" VerticalOptions="Center" TextColor="Black"/>
 
                 <Label x:Name="LblHoraAtual" TextColor="Black"/>
                 <Button Text="REGISTRAR PONTO" Command="{Binding CadastraPontoCommand}"/>

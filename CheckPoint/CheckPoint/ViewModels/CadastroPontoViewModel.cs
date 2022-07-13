@@ -13,84 +13,59 @@ using Xamarin.Forms.Maps;
 
 namespace CheckPoint.ViewModels
 {
-    public class CadastroPontoViewModel : INotifyPropertyChanged
+    public class CadastroPontoViewModel : BaseViewModel
     {
-       public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        #region -> Propriedades <-
+        public INavigation _navigation;
 
-        private readonly PontoRepository _pontoRepository;
-        private readonly RelatorioRepository _relatorioRepository;
-        public ICommand CadastraPontoCommand { get; set; }
-        public INavigation Navigation { get; set; }
+        private PontoRepository _pontoRepository;
+        private RelatorioRepository _relatorioRepository;
 
-        private Guid idRelatorio;
+        public Command _cadastraPontoCommand;        
 
-        public Guid IdRelatorio
-        {
-            get { return idRelatorio; }
-            set { idRelatorio = value; }
-        }
-
-
+        private Usuario _userObj;
+        private Guid _idRelatorio;
         private DateTime _dataAtual;
-
-        public DateTime DataAtual
-        {
-            get { return _dataAtual; }
-            set 
-            {
-                _dataAtual = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("HoraAtual"));
-            }
-        }
-
         private string _endereco;
-
-        public string Endereco
-        {
-            get { return _endereco; }
-            set { _endereco = value; PropertyChanged(this, new PropertyChangedEventArgs("Endereco"));}
-        }
-
-        private double latitude;
-
-        public double Latitude
-        {
-            get { return latitude; }
-            set { latitude = value; PropertyChanged(this, new PropertyChangedEventArgs("Latitude"));}
-        }
-
-        private double longitude;
-
-        public double Longitude
-        {
-            get { return longitude; }
-            set { longitude = value; PropertyChanged(this, new PropertyChangedEventArgs("Longitude"));}
-        }
+        private double _latitude;
+        private double _longitude;
+        #endregion
 
 
-
-
-
-
+        #region -> Construtor <-
         public CadastroPontoViewModel()
         {
             _relatorioRepository = new RelatorioRepository();
             _pontoRepository = new PontoRepository();
 
             CadastraPontoCommand = new Command(VerificaPonto);
-            
+
         }
+        #endregion
+        #region -> Encapsulamento <-
 
-        //public void cadastrarPonto(Guid idUsuario)
-        //{
+        public Usuario UserObj { get { return _userObj; } set { _userObj = value; OnPropertyChanged("UserObj"); } }
+        public Guid IdRelatorio { get { return _idRelatorio; } set { _idRelatorio = value; OnPropertyChanged("IdRelatorio"); } }
+        public DateTime DataAtual { get { return _dataAtual; } set { _dataAtual = value; OnPropertyChanged("DataAtual"); } }
+        public string Endereco { get { return _endereco; } set { _endereco = value; OnPropertyChanged("Endereco"); } }
+        public double Latitude { get { return _latitude; } set { _latitude = value; OnPropertyChanged("Latitude"); } }
+        public double Longitude { get { return _longitude; } set { _longitude = value; OnPropertyChanged("Longitude"); } }
 
-        //}
+        #endregion
 
+
+        #region -> Command's <-
+        public Command CadastraPontoCommand => _cadastraPontoCommand ?? (_cadastraPontoCommand = new Command(VerificaPonto));
+
+        #endregion
+
+
+        #region -> Métodos <-
         public void VerificaPonto()
         {
             try
             {
-               AdicionarPonto(IdRelatorio);              
+                AdicionarPonto(IdRelatorio);
 
 
             }
@@ -119,7 +94,7 @@ namespace CheckPoint.ViewModels
             }
             catch (Exception ex)
             {
-                 App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
+                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
             }
         }
 
@@ -128,13 +103,13 @@ namespace CheckPoint.ViewModels
         {
             Guid RelatorioId;
             try
-            {              
+            {
 
 
                 Relatorio relatorio = new Relatorio();
                 relatorio.Data = DataAtual;
                 relatorio.Status = "Ativo";
-                //relatorio.Fk_IdUsuario = Guid.Parse("f06e6eee-579f-4dda-a167-054661577e1a");
+                relatorio.Fk_IdUsuario = _userObj.Id;
                 relatorio.Ativo = 1;
                 relatorio.Id = Guid.NewGuid();
                 relatorio.Alteracao = null;
@@ -148,7 +123,7 @@ namespace CheckPoint.ViewModels
             catch (Exception ex)
             {
 
-                App.Current.MainPage.DisplayAlert("Alerta", ex.Message,"OK");
+                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
             }
 
             return RelatorioId;
@@ -166,14 +141,14 @@ namespace CheckPoint.ViewModels
         }
 
         public async Task GeocodEnderecoAsync()
-        {          
+        {
 
             try
             {
-                
+
                 Geocoder geoCoder = new Geocoder();
 
-                Position position = new Position(latitude, longitude);
+                Position position = new Position(_latitude, _longitude);
                 IEnumerable<string> possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
                 string endereco = possibleAddresses.FirstOrDefault();
 
@@ -185,14 +160,15 @@ namespace CheckPoint.ViewModels
                 await App.Current.MainPage.DisplayAlert("Alerta!", ex.Message, "OK");
             }
 
-            
+
         }
 
         //public void PuxaGeo()
         //{
         //    GeocodEnderecoAsync().GetAwaiter();
         //    _endereco = GeocodEnderecoAsync().GetAwaiter().GetResult();
-        //}
+        //} 
+        #endregion
 
     }
 }

@@ -19,7 +19,7 @@ namespace CheckPoint.Views
             InitializeComponent();
 
             _cadastroUsuarioViewModel = BindingContext as CadastroUsuarioViewModel;
-            _cadastroUsuarioViewModel.Navigation = Navigation;
+            _cadastroUsuarioViewModel._navigation = Navigation;
         }
     }
 }

@@ -10,71 +10,65 @@ using CheckPointBase.Data.Repository;
 
 namespace CheckPoint.ViewModels
 {
-    public class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : BaseViewModel
     {
+        #region -> Propriedades <-
+        public INavigation _navigation;
 
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        private UsuarioRepository _usuarioRepository;
 
-        private readonly UsuarioRepository _usuarioRepository;
-        public INavigation Navigation { get; set; }
+        private Usuario _userObj;
+        private string _email;
+        private string _senha;
 
-        private Usuario userObj;
-
-        public Usuario UserObj
-        {
-            get { return userObj; }
-            set { userObj = value; }
-        }
-
-        private string email { get; set; }
-        public string Email
-        {
-            get { return email; }
-            set
-            {
-                email = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Email"));
-            }
-        }
-        private string senha { get; set; }
-        public string Senha
-        {
-            get { return senha; }
-            set
-            {
-                senha = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Senha"));
-            }
-        }
-
-        public ICommand LoginCommand { protected set; get; }
-        public ICommand PaginaCadastroCommand { protected set; get; }
+        private Command _loginCommand;
+        private Command _paginaCadastroCommand;
+        #endregion
 
 
+
+        #region -> Construtor <-
         public LoginViewModel()
-        {
-            //var navPage = new NavigationPage(new HomePage());
-            LoginCommand = new Command(Logar);
-
-            PaginaCadastroCommand = new Command(NavegaPaginaCadastro);
-
+        {           
             _usuarioRepository = new UsuarioRepository();
+
+
             Email = "joao@gmail.com";
             Senha = "12345";
         }
+        #endregion
 
+        #region -> Encapsulamento <-
+        public Usuario UserObj { get { return _userObj; } set { _userObj = value; OnPropertyChanged("UserObj"); } }
+
+        public string Email { get { return _email; } set { _email = value; OnPropertyChanged("Email"); } }
+
+        public string Senha { get { return _senha; } set { _senha = value; OnPropertyChanged("Senha"); } }
+        #endregion
+
+
+        #region -> Command's <-
+        public Command LoginCommand => _loginCommand ?? (_loginCommand = new Command(Logar));
+
+        public Command PaginaCadastroCommand => _paginaCadastroCommand ?? (_paginaCadastroCommand = new Command(NavegaPaginaCadastro));
+
+        #endregion
+
+
+
+        #region -> Métodos <-
         public void Logar()
         {
-            
-            Usuario user = _usuarioRepository.GetUsuarioByLogin(Email,Senha);
-                       
+
+            Usuario user = _usuarioRepository.GetUsuarioByLogin(Email, Senha);
+
 
             if (user != null)
             {
                 // usuário existe
-                userObj = user;
-                App.Current.MainPage = new NavigationPage(new HomePage(userObj));
-                
+                _userObj = user;
+                App.Current.MainPage = new NavigationPage(new HomePage(_userObj));
+
             }
             else
             {
@@ -82,16 +76,17 @@ namespace CheckPoint.ViewModels
                 // Usuário não existe
             }
 
-            
+
 
         }
 
         public void NavegaPaginaCadastro()
         {
 
-            Navigation.PushAsync(new CadastroUsuarioPage());
-                        
-        }
+            _navigation.PushAsync(new CadastroUsuarioPage());
+
+        } 
+        #endregion
 
 
     }

@@ -8,38 +8,31 @@ using System.Text;
 
 namespace CheckPoint.ViewModels
 {
-    public class TabbedViewModel
+    public class TabbedViewModel : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        #region -> Propriedades <-
+        private Usuario _userObj;
+        private TabItemCollection _items; 
+        #endregion
 
-        private Usuario userObj;
-
-        public Usuario UserObj
-        {
-            get { return userObj; }
-            set { userObj = value; }
-        }
-
-
-        private TabItemCollection items { get; set; }
-        public TabItemCollection Items
-        {
-            get { return items; }
-            set
-            {
-                items = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Items"));
-            }
-        }
+        #region -> Construtor <-
         public TabbedViewModel()
         {
             Items = new TabItemCollection();
-        
-            Items.Add(new SfTabItem { Content = new HomePage(userObj).Content, Title="Histórico"});
-            Items.Add(new SfTabItem { Content = new CadastroUsuarioPage().Content, Title = "Usuario"});
-        
+
+            Items.Add(new SfTabItem { Content = new HomePage(_userObj).Content, Title = "Histórico" });
+            Items.Add(new SfTabItem { Content = new CadastroUsuarioPage().Content, Title = "Usuario" });
+
+        } 
+        #endregion
+
+        #region -> Encapsulamento <-
+        public Usuario UserObj { get { return _userObj; } set { _userObj = value; OnPropertyChanged("UserObj"); } }
+        public TabItemCollection Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
+
+        #endregion
 
 
-        }
+
     }
 }

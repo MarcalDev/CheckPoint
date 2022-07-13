@@ -14,6 +14,7 @@ using Plugin.Geolocator;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using CheckPoint.Controls;
+using CheckPointBase.Models;
 
 namespace CheckPoint.Views.PopUp
 {
@@ -24,12 +25,14 @@ namespace CheckPoint.Views.PopUp
 
         Map mapa;
 
-        public CadastroPontoPopUp(Guid IdRelatorio)
+        public CadastroPontoPopUp(Guid IdRelatorio, Usuario userObj)
         {
             InitializeComponent();
 
             _cadastroPontoViewModel = new CadastroPontoViewModel();
             _cadastroPontoViewModel = BindingContext as CadastroPontoViewModel;
+
+            _cadastroPontoViewModel.UserObj = userObj;
 
             _cadastroPontoViewModel.CarregaDados();
 
