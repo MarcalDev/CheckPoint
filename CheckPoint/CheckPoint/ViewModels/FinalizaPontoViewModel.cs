@@ -20,6 +20,7 @@ namespace CheckPoint.ViewModels
 
         private Ponto _ponto;
         private Relatorio _relatorio;
+        private Usuario _userObj;
         private string _endereco;
         private double _latitude;
         private double _longitude;
@@ -39,6 +40,7 @@ namespace CheckPoint.ViewModels
         #region -> Encapsulamento <-
         public Ponto Ponto { get { return _ponto; } set { _ponto = value; OnPropertyChanged("Ponto"); } }
         public Relatorio Relatorio { get { return _relatorio; } set { _relatorio = value; OnPropertyChanged("Relatorio"); } }
+        public Usuario UserObj { get { return _userObj; } set { _userObj = value; OnPropertyChanged("UserObj"); } }
         public string Endereco { get { return _endereco; } set { _endereco = value; OnPropertyChanged("Endereco"); } }
         public double Latitude { get { return _latitude; } set { _latitude = value; OnPropertyChanged("Latitude"); } }
         public double Longitude { get { return _longitude; } set { _longitude = value; OnPropertyChanged("Longitude"); } }
@@ -84,7 +86,18 @@ namespace CheckPoint.ViewModels
 
             res = jornadaAtual.Add(res);
 
-            TimeSpan jornadaTotal = new TimeSpan(6, 0, 0);
+            TimeSpan jornadaTotal;
+
+            if(_userObj.Cargo == "Estagiario")
+            {
+                jornadaTotal = new TimeSpan(6, 0, 0);
+            }
+            else
+            {
+                jornadaTotal = new TimeSpan(8, 0, 0);
+            }
+
+            
 
             TimeSpan saldo = res.Subtract(jornadaTotal);
 

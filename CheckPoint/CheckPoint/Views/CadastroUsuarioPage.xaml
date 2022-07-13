@@ -36,11 +36,12 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
 
                     <Label Text="NOME" TextColor="Black" FontAttributes="Bold" Grid.Row="0"/>
-                    <Entry Text="{Binding Nome}" Placeholder="Senha" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="0" VerticalOptions="Center"/>
+                    <Entry Text="{Binding Nome}" Placeholder="Nome" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="0" VerticalOptions="Center"/>
 
                     <Label Text="EMAIL" TextColor="Black" FontAttributes="Bold" Grid.Row="1"/>
                     <Entry Text="{Binding Email}" Placeholder="nome@email.com" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="1" VerticalOptions="Center"/>
@@ -50,11 +51,15 @@
 
                     <Label Text="REPITA A SENHA" TextColor="Black" FontAttributes="Bold" Grid.Row="3"/>
                     <Entry Placeholder="Senha" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="3" VerticalOptions="Center"/>
+                    
+                    <Label Text="EMPRESA" TextColor="Black" FontAttributes="Bold" Grid.Row="4"/>
+                    <Entry Text="{Binding Empresa}" Placeholder="Empresa" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="4" VerticalOptions="Center"/>
+                   
 
                     
-                    <Grid Grid.Row="4" ColumnDefinitions="1*,9*" VerticalOptions="Start">
-                        <CheckBox Grid.Column="0" VerticalOptions="Start"/>
-                        <Label Text="Aceito os Temos e Condições" VerticalOptions="Center" TextColor="Black" Grid.Column="1"/>
+                    <Grid Grid.Row="5" ColumnDefinitions="1*,9*" VerticalOptions="Start">
+                        <CheckBox x:Name="Check" Grid.Column="0" VerticalOptions="Start" IsChecked="False" CheckedChanged="CheckBox_CheckedChanged" />
+                        <Label Text="Estagiário(a)" VerticalOptions="Center" TextColor="Black" Grid.Column="1"/>
                     </Grid>                    
 
                 </Grid>               

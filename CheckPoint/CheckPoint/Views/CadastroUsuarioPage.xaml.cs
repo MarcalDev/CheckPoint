@@ -21,5 +21,17 @@ namespace CheckPoint.Views
             _cadastroUsuarioViewModel = BindingContext as CadastroUsuarioViewModel;
             _cadastroUsuarioViewModel._navigation = Navigation;
         }
+
+        private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            if (Check.IsChecked)
+            {
+                _cadastroUsuarioViewModel.Cargo = "Estagiario";
+            }
+            else
+            {
+                _cadastroUsuarioViewModel.Cargo = "Efetivado";
+            }
+        }
     }
 }

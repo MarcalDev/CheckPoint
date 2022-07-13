@@ -23,7 +23,7 @@ namespace CheckPoint.Views.PopUp
         FinalizaPontoViewModel _finalizaPontoViewModel;
 
         Map mapa;
-        public FinalizaPontoPopUp(Ponto ponto)
+        public FinalizaPontoPopUp(Ponto ponto, Usuario userObj)
         {
             InitializeComponent();
 
@@ -40,6 +40,8 @@ namespace CheckPoint.Views.PopUp
 
 
             LblHoraAtual.Text = DateTime.Now.ToString("hh:mm:ss");
+
+            _finalizaPontoViewModel.UserObj = userObj;
         }
 
 

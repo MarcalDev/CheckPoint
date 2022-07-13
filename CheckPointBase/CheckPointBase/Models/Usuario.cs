@@ -22,5 +22,8 @@ namespace CheckPointBase.Models
         [Column("NOME_EMPRESA")]
         public string NomeEmpresa { get; set; }
 
+        [Column("CARGO")]
+        public string Cargo { get; set; }
+        
     }
 }

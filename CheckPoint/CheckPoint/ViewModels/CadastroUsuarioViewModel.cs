@@ -21,6 +21,8 @@ namespace CheckPoint.ViewModels
         private string _nome;
         private string _email;
         private string _senha;
+        private string _empresa;
+        private string _cargo;
 
         private Command _paginaLoginCommand;
         private Command _cadastroUsuarioCommand;   
@@ -40,6 +42,8 @@ namespace CheckPoint.ViewModels
         public string Nome { get { return _nome; } set { _nome = value; OnPropertyChanged("Nome"); } }
         public string Email { get { return _email; } set { _email = value; OnPropertyChanged("Email"); } }
         public string Senha { get { return _senha; } set { _senha = value; OnPropertyChanged("Senha"); } } 
+        public string Empresa { get { return _empresa; } set { _empresa = value; OnPropertyChanged("Empresa"); } } 
+        public string Cargo { get { return _cargo; } set { _cargo = value; OnPropertyChanged("Cargo"); } } 
         #endregion
 
 
@@ -62,9 +66,11 @@ namespace CheckPoint.ViewModels
             user.NomeEmpresa = "";
             user.Alteracao = null;
             user.Ativo = 1;
-            user.NomeUsuario = Nome;
-            user.Email = Email;
-            user.Senha = Senha;
+            user.NomeUsuario = _nome;
+            user.Email = _email;
+            user.Senha = _senha;
+            user.Cargo = _cargo;
+            user.NomeEmpresa = _empresa;
 
             var p = _usuarioRepository.InsertOrReplaceUsuario(user);
 

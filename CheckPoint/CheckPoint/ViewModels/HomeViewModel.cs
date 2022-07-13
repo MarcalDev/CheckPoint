@@ -91,7 +91,7 @@ namespace CheckPoint.ViewModels
 
                     else
                     {
-                        App.Current.MainPage.Navigation.ShowPopup(new FinalizaPontoPopUp(LastPonto));
+                        App.Current.MainPage.Navigation.ShowPopup(new FinalizaPontoPopUp(LastPonto, _userObj));
                     }
                 }
 
