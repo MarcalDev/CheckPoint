@@ -20,11 +20,11 @@ namespace CheckPoint.Views
             InitializeComponent();
 
             _detalheRelatorioViewModel = BindingContext as DetalheRelatorioViewModel;
-            _detalheRelatorioViewModel.relatorioItem = relatorio;
+            _detalheRelatorioViewModel.RelatorioItem = relatorio;
             _detalheRelatorioViewModel.UserObj = userObj;
             _detalheRelatorioViewModel.CarregaDados();
 
-            LblDataTitulo.Text = _detalheRelatorioViewModel.relatorioItem.Data.ToString("dd/MM/yyyy");
+            LblDataTitulo.Text = _detalheRelatorioViewModel.RelatorioItem.Data.ToString("dd/MM/yyyy");
             ListaPontos.ItemsSource = _detalheRelatorioViewModel.Pontos;
 
         }

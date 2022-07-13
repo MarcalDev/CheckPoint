@@ -38,8 +38,6 @@ namespace CheckPoint.ViewModels
             _relatorioRepository = new RelatorioRepository();
             _pontoRepository = new PontoRepository();
 
-            CadastraPontoCommand = new Command(VerificaPonto);
-
         }
         #endregion
         #region -> Encapsulamento <-
