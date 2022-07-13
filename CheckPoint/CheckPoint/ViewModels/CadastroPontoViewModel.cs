@@ -83,10 +83,12 @@ namespace CheckPoint.ViewModels
             {
                 Ponto ponto = new Ponto();
                 ponto.DataInicio = DataAtual;
-                ponto.Local = _endereco;
+                ponto.LocalInicial = _endereco;
                 ponto.Fk_IdRelatorio = IdRelatorio;
                 ponto.Ativo = 1;
                 ponto.Alteracao = null;
+                ponto.IsFinalizado = false;
+                
 
                 var p = _pontoRepository.InsertOrReplacePonto(ponto);
             }

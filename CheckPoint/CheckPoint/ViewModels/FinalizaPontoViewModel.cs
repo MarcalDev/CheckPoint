@@ -3,9 +3,12 @@ using CheckPointBase.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace CheckPoint.ViewModels
 {
@@ -17,6 +20,9 @@ namespace CheckPoint.ViewModels
 
         private Ponto _ponto;
         private Relatorio _relatorio;
+        private string _endereco;
+        private double _latitude;
+        private double _longitude;
 
         private Command _finalizaPontoCommand;
         #endregion
@@ -33,6 +39,10 @@ namespace CheckPoint.ViewModels
         #region -> Encapsulamento <-
         public Ponto Ponto { get { return _ponto; } set { _ponto = value; OnPropertyChanged("Ponto"); } }
         public Relatorio Relatorio { get { return _relatorio; } set { _relatorio = value; OnPropertyChanged("Relatorio"); } }
+        public string Endereco { get { return _endereco; } set { _endereco = value; OnPropertyChanged("Endereco"); } }
+        public double Latitude { get { return _latitude; } set { _latitude = value; OnPropertyChanged("Latitude"); } }
+        public double Longitude { get { return _longitude; } set { _longitude = value; OnPropertyChanged("Longitude"); } }
+
         #endregion
 
         #region -> Command's <-
@@ -43,8 +53,11 @@ namespace CheckPoint.ViewModels
 
         public void FinalizarPonto()
         {
+            _relatorioRepository = new RelatorioRepository();
+            _pontoRepository = new PontoRepository();
+
             var dataFim = DateTime.Now;
-            var p = _pontoRepository.SetDataFimPonto(_ponto.Id, dataFim);
+            var p = _pontoRepository.SetPontoFinalizado(_ponto.Id, dataFim, Endereco);
 
             ContarSaldo();
         }
@@ -54,16 +67,42 @@ namespace CheckPoint.ViewModels
 
             _relatorio = _relatorioRepository.GetRelatorioById(_ponto.Fk_IdRelatorio);
 
-            TimeSpan TempoAtual = _relatorio.Saldo;
-            TimeSpan tempoInicial = TimeSpan.Parse(_ponto.DataInicio.ToString("hh:mm:ss"));
-            TimeSpan tempoFinal = TimeSpan.Parse(_ponto.DataFim.ToString("hh:mm:ss"));
+            //TimeSpan TempoAtual = _relatorio.Saldo;
+            //TimeSpan tempoInicial = TimeSpan.Parse(_ponto.DataInicio.ToString("hh:mm:ss"));
+            //TimeSpan tempoFinal = TimeSpan.Parse(_ponto.DataFim.ToString("hh:mm:ss"));
 
-            TimeSpan saldo = TempoAtual + (tempoFinal - tempoInicial);
+            TimeSpan saldo = _relatorio.Saldo;
 
+            TimeSpan tempoInicial = new TimeSpan(_ponto.DataInicio.Hour, _ponto.DataInicio.Minute, _ponto.DataInicio.Second);
+            
+            TimeSpan tempoFinal = new TimeSpan(_ponto.DataFim.Hour, _ponto.DataFim.Minute, _ponto.DataFim.Second);
+
+            saldo.Add(tempoFinal.Subtract(tempoInicial));
+                        
             _relatorioRepository.UpdateSaldoRelatorio(_ponto.Fk_IdRelatorio, saldo);
 
+        }
 
-        } 
+        public async Task GeocodEnderecoAsync()
+        {
+            try
+            {
+                Geocoder geoCoder = new Geocoder();
+
+                Position position = new Position(_latitude, _longitude);
+                IEnumerable<string> possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+                string endereco = possibleAddresses.FirstOrDefault();
+
+                _endereco = endereco;
+            }
+            catch (Exception ex)
+            {
+
+                await App.Current.MainPage.DisplayAlert("Alerta!", ex.Message, "OK");
+            }
+
+
+        }
         #endregion
     }
 }

@@ -84,7 +84,7 @@ namespace CheckPoint.ViewModels
 
                 else
                 {
-                    if (LastPontoDateFinal != dataDefault)
+                    if (LastPonto.IsFinalizado)
                     {
                         App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(LastPonto.Fk_IdRelatorio, _userObj));
                     }
@@ -161,10 +161,11 @@ namespace CheckPoint.ViewModels
             {
                 Ponto ponto = new Ponto();
                 ponto.DataInicio = DataAtual;
-                ponto.Local = "Endereco";
+                ponto.LocalInicial = "Endereco";
                 ponto.Fk_IdRelatorio = IdRelatorio;
                 ponto.Ativo = 1;
                 ponto.Alteracao = null;
+                ponto.IsFinalizado = false;
 
                 var p = _pontoRepository.InsertOrReplacePonto(ponto);
             }

@@ -99,21 +99,18 @@
                                             <Label  Grid.Column="0" Style="{StaticResource DataTitulo}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="{Binding Data.Day}" />
-                                                        <Span Text="/0" />
-                                                        <Span Text="{Binding Data.Month}" />
-                                                        <Span Text="/" />
-                                                        <Span Text="{Binding Data.Year}" />
+                                                        <Span Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" />
+                                                        
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-                                            <BoxView Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Style="{StaticResource BoxStatus}"/>
-                                            
+                                            <BoxView Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Style="{StaticResource BoxStatus}"/>                                            
                                             
                                         </Grid>
 
-                                        <Label Text="{Binding Data.DayOfWeek}" Grid.Row="1" TextColor="Black"/>
-                                        <Label Grid.Row="2" TextColor="Black">
+                                        <Label Text="{Binding Data, StringFormat='{0:dddd}'}" Grid.Row="1" VerticalOptions="Start" TextColor="Black"/>
+
+                                        <Label Grid.Row="2" TextColor="Black" VerticalOptions="Center">                                            
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="Saldo:"/>

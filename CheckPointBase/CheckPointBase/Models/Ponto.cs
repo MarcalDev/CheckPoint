@@ -16,8 +16,11 @@ namespace CheckPointBase.Models
         [Column("DT_FIM")]
         public DateTime DataFim { get; set; }
 
-        [Column("LOCAL")]
-        public string Local { get; set; }
+        [Column("LOCAL_INICIO")]
+        public string LocalInicial { get; set; }
+
+        [Column("LOCAL_FIM")]
+        public string LocalFinal { get; set; }
 
         [Column("USUARIO_ID")]
         public Guid Fk_IdUsuario { get; set; }
@@ -25,6 +28,7 @@ namespace CheckPointBase.Models
         [Column("RELATORIO_ID")]
         public Guid Fk_IdRelatorio { get; set; }
 
-
+        [Column("FINALIZADO")]
+        public bool IsFinalizado { get; set; }
     }
 }

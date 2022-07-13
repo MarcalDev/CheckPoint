@@ -61,11 +61,11 @@ namespace CheckPointBase.Data.Repository
             }
         }
 
-        public bool SetDataFimPonto(Guid pontoId, DateTime dataFim)
+        public bool SetPontoFinalizado(Guid pontoId, DateTime dataFim, string localFim)
         {
             try
             {
-                _dbContext.Conexao.FindWithQuery<Ponto>("UPDATE PONTO SET DT_FIM = ? WHERE Id = ?", dataFim, pontoId);
+                _dbContext.Conexao.FindWithQuery<Ponto>("UPDATE PONTO SET FINALIZADO = TRUE, DT_FIM = ?, LOCAL_FIM = ? WHERE Id = ?", dataFim, localFim, pontoId);
                 return true;
             }
             catch (Exception e)
@@ -74,6 +74,8 @@ namespace CheckPointBase.Data.Repository
                 throw e;
             }
         }
+
+     
 
         public List<Ponto> ListaPontosRecentes(Usuario usuarioId)
         {

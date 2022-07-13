@@ -14,6 +14,6 @@ namespace CheckPointBase.Data.Interface
         bool InsertOrReplacePonto(Ponto ponto);
         List<Ponto> ListaTodosPontos(Guid usuarioId);
         Ponto GetLastPonto(Guid usuarioId);
-        bool SetDataFimPonto(Guid pontoId, DateTime dataFim);
+        bool SetPontoFinalizado(Guid pontoId, DateTime dataFim, string localFim);
     }
 }

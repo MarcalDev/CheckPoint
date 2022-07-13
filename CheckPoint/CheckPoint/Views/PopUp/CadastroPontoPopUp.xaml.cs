@@ -144,7 +144,7 @@ namespace CheckPoint.Views.PopUp
         public void CriarMapa()
         {
             // Atribui a mapa um Map e adiciona uma posição, definindo a distancia em quilometros
-            mapa = new Map(MapSpan.FromCenterAndRadius(new Position(-15.8260571, -48.060058), Distance.FromKilometers(1)));
+            mapa = new Map(MapSpan.FromCenterAndRadius(new Position(_cadastroPontoViewModel.Latitude, _cadastroPontoViewModel.Longitude), Distance.FromKilometers(1)));
 
             // Define o tipo de mapa
             mapa.MapType = MapType.Street;
