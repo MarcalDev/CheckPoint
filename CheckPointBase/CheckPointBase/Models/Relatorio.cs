@@ -13,7 +13,7 @@ namespace CheckPointBase.Models
         public DateTime Data { get; set; }
 
         [Column("TEMPO_JORNADA")]
-        public DateTime TempoJornada { get; set; }
+        public TimeSpan TempoJornada { get; set; }
 
         [Column("SALDO")]
         public TimeSpan Saldo { get; set; }

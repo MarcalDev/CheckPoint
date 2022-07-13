@@ -22,7 +22,7 @@
             <Image Source="drawable/background2.png" Grid.Row="0" Grid.RowSpan="3" VerticalOptions="StartAndExpand"  />
 
             <!--Header-->
-            <Frame BorderColor="LightGray" Grid.Row="0" BackgroundColor="White" CornerRadius="25" VerticalOptions="StartAndExpand" HeightRequest="150" HasShadow="True">
+            <Frame BorderColor="LightGray" Grid.Row="0" BackgroundColor="White" CornerRadius="25" VerticalOptions="StartAndExpand" HeightRequest="170" HasShadow="True">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.5*"/>
@@ -88,6 +88,7 @@
                                             <RowDefinition Height="1.2*"/>
                                             <RowDefinition Height="0.4*"/>
                                             <RowDefinition Height="0.4*"/>
+                                            <RowDefinition Height="0.4*"/>
                                         </Grid.RowDefinitions>
 
                                         <Grid Grid.Row="0">
@@ -113,8 +114,17 @@
                                         <Label Grid.Row="2" TextColor="Black" VerticalOptions="Center">                                            
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="Saldo:"/>
+                                                    <Span Text="Saldo: "/>
                                                     <Span Text="{Binding Saldo}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        
+                                        <Label Grid.Row="3" TextColor="Black" VerticalOptions="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Tempo jornada: "/>
+                                                    <Span Text="{Binding TempoJornada}"/>
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>

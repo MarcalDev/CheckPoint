@@ -106,6 +106,7 @@ namespace CheckPoint.ViewModels
 
                 AdicionarPonto(IdRelatorio);
 
+                //App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(IdRelatorio, _userObj));
 
             }
 

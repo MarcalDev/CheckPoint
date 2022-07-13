@@ -56,13 +56,16 @@ namespace CheckPoint.ViewModels
             _relatorioRepository = new RelatorioRepository();
             _pontoRepository = new PontoRepository();
 
+            //var dataFim = new  TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
             var dataFim = DateTime.Now;
+            _ponto.DataFim = dataFim;
             var p = _pontoRepository.SetPontoFinalizado(_ponto.Id, dataFim, Endereco);
 
-            ContarSaldo();
+            ContarSaldoEJornada();
         }
 
-        public void ContarSaldo()
+        public void ContarSaldoEJornada()
         {
 
             _relatorio = _relatorioRepository.GetRelatorioById(_ponto.Fk_IdRelatorio);
@@ -71,15 +74,21 @@ namespace CheckPoint.ViewModels
             //TimeSpan tempoInicial = TimeSpan.Parse(_ponto.DataInicio.ToString("hh:mm:ss"));
             //TimeSpan tempoFinal = TimeSpan.Parse(_ponto.DataFim.ToString("hh:mm:ss"));
 
-            TimeSpan saldo = _relatorio.Saldo;
+            TimeSpan jornadaAtual = _relatorio.TempoJornada;
 
             TimeSpan tempoInicial = new TimeSpan(_ponto.DataInicio.Hour, _ponto.DataInicio.Minute, _ponto.DataInicio.Second);
             
             TimeSpan tempoFinal = new TimeSpan(_ponto.DataFim.Hour, _ponto.DataFim.Minute, _ponto.DataFim.Second);
 
-            saldo.Add(tempoFinal.Subtract(tempoInicial));
-                        
-            _relatorioRepository.UpdateSaldoRelatorio(_ponto.Fk_IdRelatorio, saldo);
+            TimeSpan res = tempoFinal.Subtract(tempoInicial);
+
+            res = jornadaAtual.Add(res);
+
+            TimeSpan jornadaTotal = new TimeSpan(6, 0, 0);
+
+            TimeSpan saldo = res.Subtract(jornadaTotal);
+
+            _relatorioRepository.UpdateSaldoEJornadaRelatorio(_ponto.Fk_IdRelatorio, saldo, res);
 
         }
 

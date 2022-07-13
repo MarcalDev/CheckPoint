@@ -152,6 +152,9 @@ namespace CheckPoint.ViewModels
                 IEnumerable<string> possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
                 string endereco = possibleAddresses.FirstOrDefault();
 
+                // Pegar apenas Rua,Bairro e Cidade
+                //string[] enderecoList = endereco.Split(", ");
+
                 _endereco = endereco;
             }
             catch (Exception ex)

@@ -75,11 +75,11 @@ namespace CheckPointBase.Data.Repository
             }
         }
 
-        public bool UpdateSaldoRelatorio(Guid relatorioId, TimeSpan saldo)
+        public bool UpdateSaldoEJornadaRelatorio(Guid relatorioId, TimeSpan saldo, TimeSpan jornada)
         {
             try
             {
-                _dbContext.Conexao.FindWithQuery<Ponto>("UPDATE RELATORIO SET SALDO = ? WHERE Id = ?", saldo, relatorioId);
+                _dbContext.Conexao.FindWithQuery<Ponto>("UPDATE RELATORIO SET SALDO = ?, TEMPO_JORNADA = ? WHERE Id = ?", saldo, jornada, relatorioId);
                 return true;
             }
             catch (Exception e)

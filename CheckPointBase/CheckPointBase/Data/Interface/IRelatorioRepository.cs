@@ -12,6 +12,6 @@ namespace CheckPointBase.Data.Interface
         Relatorio GetRelatorioByDate(DateTime data, int usuarioId);
         List<Relatorio> GetRelatorios(Guid UsuarioId);
         bool InsertOrReplaceRelatorio(Relatorio relatorio);
-        bool UpdateSaldoRelatorio(Guid relatorioId, TimeSpan saldo);
+        bool UpdateSaldoEJornadaRelatorio(Guid relatorioId, TimeSpan saldo, TimeSpan jornada);
     }
 }
