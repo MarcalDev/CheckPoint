@@ -11,16 +11,16 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="18*"/>
+                <RowDefinition Height="14*"/>
                 <RowDefinition Height="4*"/>
-                <RowDefinition Height="74*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
             <!--<BoxView Grid.Row="0" BackgroundColor="White"/>
             <BoxView Grid.Row="1" BackgroundColor="White"/>
             <BoxView Grid.Row="2" BackgroundColor="White"/>-->
-            <BoxView Grid.Row="3" BackgroundColor="White"/>
+            <BoxView Grid.Row="0" Grid.RowSpan="4" BackgroundColor="White"/>
 
             <Image Source="drawable/background2.png" Grid.Row="0" Grid.RowSpan="4" VerticalOptions="StartAndExpand" />
 
@@ -29,7 +29,7 @@
 
             <Label Text="Preencha os campos abaixo" Grid.Row="1" HorizontalTextAlignment="Center" VerticalOptions="Center" Style="{StaticResource labelTitulo}" Margin="0,0,0,0"/>
 
-            <Frame Grid.Row="2" VerticalOptions="StartAndExpand" HeightRequest="500" BackgroundColor="White" Margin="25,0,25,80" CornerRadius="25" Padding="22">
+            <Frame Grid.Row="2" VerticalOptions="StartAndExpand" HeightRequest="510" BackgroundColor="White" Margin="25,0,25,80" CornerRadius="25" Padding="22">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
@@ -37,27 +37,29 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.3*"/>
                     </Grid.RowDefinitions>
 
                     <Label Text="NOME" TextColor="Black" FontAttributes="Bold" Grid.Row="0"/>
                     <Entry Text="{Binding Nome}" Placeholder="Nome" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="0" VerticalOptions="Center"/>
 
-                    <Label Text="EMAIL" TextColor="Black" FontAttributes="Bold" Grid.Row="1"/>
-                    <Entry Text="{Binding Email}" Placeholder="nome@email.com" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="1" VerticalOptions="Center"/>
-
-                    <Label Text="SENHA" TextColor="Black" FontAttributes="Bold" Grid.Row="2"/>
-                    <Entry Text="{Binding Senha}" Placeholder="Senha" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="2" VerticalOptions="Center"/>
-
-                    <Label Text="REPITA A SENHA" TextColor="Black" FontAttributes="Bold" Grid.Row="3"/>
-                    <Entry Placeholder="Senha" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="3" VerticalOptions="Center"/>
+                    <Label Text="EMPRESA" TextColor="Black" FontAttributes="Bold" Grid.Row="1"/>
+                    <Entry Text="{Binding Empresa}" Placeholder="Empresa" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="1" VerticalOptions="Center"/>
                     
-                    <Label Text="EMPRESA" TextColor="Black" FontAttributes="Bold" Grid.Row="4"/>
-                    <Entry Text="{Binding Empresa}" Placeholder="Empresa" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="4" VerticalOptions="Center"/>
+                    <Label Text="EMAIL" TextColor="Black" FontAttributes="Bold" Grid.Row="2"/>
+                    <Entry Text="{Binding Email}" Placeholder="nome@email.com" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="2" VerticalOptions="Center"/>
+
+                    <Label Text="SENHA" TextColor="Black" FontAttributes="Bold" Grid.Row="3"/>
+                    <Entry Text="{Binding Senha}" Placeholder="Senha" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="3" VerticalOptions="Center"/>
+
+                    <Label Text="REPITA A SENHA" TextColor="Black" FontAttributes="Bold" Grid.Row="4"/>
+                    <Entry Placeholder="Senha" PlaceholderColor="DarkGray" BackgroundColor="LightGray" Grid.Row="4" VerticalOptions="Center"/>
+                    
+                    
                    
 
                     
-                    <Grid Grid.Row="5" ColumnDefinitions="1*,9*" VerticalOptions="Start">
+                    <Grid Grid.Row="5" ColumnDefinitions="1*,9*" VerticalOptions="Center">
                         <CheckBox x:Name="Check" Grid.Column="0" VerticalOptions="Start" IsChecked="False" CheckedChanged="CheckBox_CheckedChanged" />
                         <Label Text="Estagiário(a)" VerticalOptions="Center" TextColor="Black" Grid.Column="1"/>
                     </Grid>                    
@@ -66,9 +68,9 @@
 
             </Frame>
 
-            <Button Text="CADASTRAR" Command="{Binding CadastroUsuarioCommand}" Grid.Row="2" Grid.RowSpan="2" Margin="45,100,45,100" VerticalOptions="End" HorizontalOptions="FillAndExpand" Style="{StaticResource ButtonGreen}"/>
+            <Button Text="CADASTRAR" Command="{Binding CadastroUsuarioCommand}" Grid.Row="2" Grid.RowSpan="2" Margin="45,100,45,65" VerticalOptions="End" HorizontalOptions="FillAndExpand" Style="{StaticResource ButtonGreen}"/>
             
-            <Label Text="Já possui uma conta? Faça o login" Grid.Row="2" TextColor="Black" FontSize="14" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,20">
+            <Label Text="Já possui uma conta? Faça o login" Grid.Row="2" TextColor="Black" FontSize="14" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,0">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PaginaLoginCommand}"/>
                 </Label.GestureRecognizers>
