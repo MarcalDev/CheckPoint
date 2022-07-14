@@ -22,7 +22,7 @@
             <Label x:Name="LblEndereco" Text="Endereço" VerticalOptions="Center" TextColor="Black"/>
 
             <Label x:Name="LblHoraAtual" HorizontalOptions="Center" FontSize="24" TextColor="Black"/>
-            <Button Text="ENCERRAR PONTO" Command="{Binding FinalizaPontoCommand}" Style="{StaticResource ButtonGreen}"/>
+            <Button Text="ENCERRAR PONTO" Clicked="Button_Clicked" Command="{Binding FinalizaPontoCommand}" Style="{StaticResource ButtonGreen}"/>
 
         </StackLayout>
 

@@ -118,7 +118,7 @@
 
             </syncfusion:SfListView>
 
-            <Button Command="{Binding CadastraPontoCommand}" Text="+" Grid.Row="1" Margin="0" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="70" WidthRequest="70" />
+            <Button Command="{Binding CadastraPontoCommand}" Text="&#xf067;" FontFamily="FontAwesome2" Grid.Row="1" Margin="0,0,0,25" Style="{StaticResource ButtonRedondo}" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="70" WidthRequest="70" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

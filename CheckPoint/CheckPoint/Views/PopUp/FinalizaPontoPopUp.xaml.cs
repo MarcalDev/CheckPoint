@@ -21,16 +21,15 @@ namespace CheckPoint.Views.PopUp
     public partial class FinalizaPontoPopUp : Popup
     {
         FinalizaPontoViewModel _finalizaPontoViewModel;
+        HomeViewModel _homeViewModel;
 
         Map mapa;
-        public FinalizaPontoPopUp(Ponto ponto, Usuario userObj)
+        public FinalizaPontoPopUp(INavigation navigationPage ,Ponto ponto, Usuario userObj)
         {
             InitializeComponent();
 
-            _finalizaPontoViewModel = new FinalizaPontoViewModel();
-            BindingContext = _finalizaPontoViewModel;
-
-            _finalizaPontoViewModel.Ponto = ponto;            
+            _finalizaPontoViewModel = new FinalizaPontoViewModel(navigationPage, ponto);
+            BindingContext = _finalizaPontoViewModel;          
 
             CarregaDados().GetAwaiter();
 
@@ -144,6 +143,11 @@ namespace CheckPoint.Views.PopUp
 
             // Define mapa como conteúdo do stackLayout
             MapContainer.Children.Add(mapa);
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            Dismiss(null);
         }
     }
 }

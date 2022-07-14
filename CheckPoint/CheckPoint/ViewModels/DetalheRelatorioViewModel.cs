@@ -45,7 +45,6 @@ namespace CheckPoint.ViewModels
             _pontoRepository = new PontoRepository();
             ListaPontos = new List<Ponto>();
 
-            CarregaLista();
         }
         
         public void CarregaLista()

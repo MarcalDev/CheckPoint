@@ -22,10 +22,11 @@ namespace CheckPoint.Views.PopUp
     public partial class CadastroPontoPopUp : Popup
     {
         CadastroPontoViewModel _cadastroPontoViewModel;
+        HomeViewModel _homeViewModel;
 
         Map mapa;
 
-        public CadastroPontoPopUp(Usuario _userObj, bool _primeiro)
+        public CadastroPontoPopUp(INavigation navigationPage, Usuario _userObj, bool _primeiro)
         {
             InitializeComponent();
 
@@ -40,6 +41,7 @@ namespace CheckPoint.Views.PopUp
 
             LblHoraAtual.Text = DateTime.Now.ToString("hh:mm:ss");
 
+            
                                     
         }
 
@@ -148,8 +150,9 @@ namespace CheckPoint.Views.PopUp
             MapContainer.Children.Add(mapa);
         }
 
-
-
-
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            Dismiss(null);
+        }
     }
 }

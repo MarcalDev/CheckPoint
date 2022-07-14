@@ -106,20 +106,23 @@ namespace CheckPoint.ViewModels
             {
                 if(!_ultimoPonto.IsFinalizado)
                 {
-                    App.Current.MainPage.Navigation.ShowPopup(new FinalizaPontoPopUp(_ultimoPonto, _userObj));
+                    _navigation.ShowPopup(new FinalizaPontoPopUp(_navigation, _ultimoPonto, _userObj));
                 }
 
                 else
                 {
-                    App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(_userObj, false));
+                    _navigation.ShowPopup(new CadastroPontoPopUp(_navigation, _userObj, false));
                 }              
 
             }
             else
             {
-                App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(_userObj, true));
+                _navigation.ShowPopup(new CadastroPontoPopUp(_navigation, _userObj, true));
             }            
         }
+
+
+        
         #endregion
 
 

@@ -24,7 +24,7 @@
                 <Label x:Name="LblEndereco" Text="Endereço" VerticalOptions="Center" TextColor="Black"/>
 
                 <Label x:Name="LblHoraAtual" HorizontalOptions="Center" FontSize="24" TextColor="Black"/>
-                <Button Text="REGISTRAR PONTO" Command="{Binding CadastraPontoCommand}" Style="{StaticResource ButtonGreen}"/>
+                <Button Text="REGISTRAR PONTO" Clicked="Button_Clicked" Command="{Binding CadastraPontoCommand}" Style="{StaticResource ButtonGreen}"/>
                 
             </StackLayout>        
             

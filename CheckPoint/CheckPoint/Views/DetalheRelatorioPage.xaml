@@ -11,11 +11,10 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
 
-            <Image Source="drawable/background2.png" Grid.Row="0" Grid.RowSpan="3" VerticalOptions="StartAndExpand"  />
+            <Image Source="drawable/background2.png" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="StartAndExpand"  />
 
             <!--Header-->
             <Frame BorderColor="LightGray" Grid.Row="0" BackgroundColor="White" CornerRadius="25" VerticalOptions="StartAndExpand" HeightRequest="150" HasShadow="True">

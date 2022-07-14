@@ -15,6 +15,8 @@ namespace CheckPoint.ViewModels
     public class FinalizaPontoViewModel : BaseViewModel
     {
         #region -> Propriedades <-
+        public INavigation _navigation;
+
         private PontoRepository _pontoRepository;
         private RelatorioRepository _relatorioRepository;
 
@@ -30,10 +32,13 @@ namespace CheckPoint.ViewModels
 
 
         #region -> Construtor <-
-        public FinalizaPontoViewModel()
+        public FinalizaPontoViewModel(INavigation navigationPage, Ponto pontoItem)
         {
             _relatorioRepository = new RelatorioRepository();
             _pontoRepository = new PontoRepository();
+
+            _navigation = navigationPage;
+            _ponto = pontoItem;
         }
         #endregion
 
@@ -65,6 +70,7 @@ namespace CheckPoint.ViewModels
             var p = _pontoRepository.SetPontoFinalizado(_ponto.Id, dataFim, Endereco);
 
             ContarSaldoEJornada();
+            _navigation.PopToRootAsync();
         }
 
         public void ContarSaldoEJornada()
@@ -95,9 +101,7 @@ namespace CheckPoint.ViewModels
             else
             {
                 jornadaTotal = new TimeSpan(8, 0, 0);
-            }
-
-            
+            }            
 
             TimeSpan saldo = res.Subtract(jornadaTotal);
 

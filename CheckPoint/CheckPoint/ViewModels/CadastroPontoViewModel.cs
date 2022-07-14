@@ -1,4 +1,5 @@
-﻿using CheckPointBase.Data.Repository;
+﻿using CheckPoint.Views.PopUp;
+using CheckPointBase.Data.Repository;
 using CheckPointBase.Models;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ namespace CheckPoint.ViewModels
             _relatorioRepository = new RelatorioRepository();
             _pontoRepository = new PontoRepository();
 
+            _navigation = navigationPage;
             _userObj = userObj;
             _primeiro = primeiro;
             _dataAtual = DateTime.Now;
@@ -74,16 +76,20 @@ namespace CheckPoint.ViewModels
             {
                 _ultimoPonto = _pontoRepository.GetLastPonto(_userObj.Id);
 
-                //_idRelatorio = _ultimoPonto.Fk_IdRelatorio;
-
-                var GuidNulo = new Guid("00000000-0000-0000-0000-000000000000");
+                
+                //var GuidNulo = new Guid("00000000-0000-0000-0000-000000000000");
 
                 if (_primeiro)
                 {
-                 _idRelatorio = AdicionarRelatorio();                    
+                    _idRelatorio = AdicionarRelatorio();                    
                     
                 }
-                
+                else
+                {
+                    _idRelatorio = _ultimoPonto.Fk_IdRelatorio;
+
+                }
+
                 AdicionarPonto(_idRelatorio);
                                
 
@@ -93,9 +99,6 @@ namespace CheckPoint.ViewModels
 
                 App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
             }
-
-            App.Current.MainPage.Navigation.PopAsync();
-            
 
         }
 
