@@ -4,12 +4,12 @@
              x:Class="CheckPoint.Views.HomePage"
              xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
              xmlns:popup="clr-namespace:CheckPoint.Views.PopUp"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             
              xmlns:local="clr-namespace:CheckPoint.ViewModels"
 
              NavigationPage.HasNavigationBar="False">
-    <ContentPage.BindingContext>
-        <local:HomeViewModel/>
-    </ContentPage.BindingContext>
+  
     
     <ContentPage.Content>
         <Grid>
@@ -19,7 +19,9 @@
                 
             </Grid.RowDefinitions>
 
-            <Image Source="drawable/background2.png" Grid.Row="0" Grid.RowSpan="3" VerticalOptions="StartAndExpand"  />
+            <BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="White" VerticalOptions="Fill"/>
+
+            <Image Source="drawable/background2.png" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="StartAndExpand"  />
 
             <!--Header-->
             <Frame BorderColor="LightGray" Grid.Row="0" BackgroundColor="White" CornerRadius="25" VerticalOptions="StartAndExpand" HeightRequest="170" HasShadow="True">
@@ -34,7 +36,6 @@
                             Histórico de pontos
                         </Label.Text>                       
                     </Label>
-
 
 
 
@@ -57,85 +58,65 @@
                     
                 </Grid>
             </Frame>
-            
-            <!-- Footer-->
-            
-
-            <!--Button add-->
-           
 
 
-
-  
-
-
-            <!--<Image>
-                <Image.Source>
-                    <FontImageSource FontFamily="FontAwesomeRegular" Glyph="{x:Static fontAwesome:FontAwesomeIcons.ThumbsUp}"/>
-                </Image.Source>
-            </Image>-->
-
-
-            <ListView ItemsSource="{Binding Lista}" x:Name="ListaRelatorios" Grid.Row="1" HasUnevenRows="True" ItemSelected="ListaRelatorios_ItemSelected">
-                <ListView.ItemTemplate>
+            <syncfusion:SfListView Grid.Row="1" AutoFitMode="Height" ItemsSourceChangeCachingStrategy="RecycleItems" SelectionBackgroundColor="Transparent" ItemsSource="{Binding ListaRelatorios}" ItemTapped="SfListView_ItemTapped" ListViewCachingStrategy="RecycleTemplate">
+                <syncfusion:SfListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>                            
-                            <StackLayout>
-                                <Frame Margin="0,10,0,0" HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource FrameItem}">
-                                    
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.9*"/>
-                                            <RowDefinition Height="0.5*"/>
-                                            <RowDefinition Height="0.5*"/>
-                                            <RowDefinition Height="0.5*"/>
-                                        </Grid.RowDefinitions>
+                        <Frame Margin="0,10,0,0" HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource FrameItem}">
 
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="1*"/>
-                                                <ColumnDefinition Width="1*"/>
-                                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.9*"/>
+                                    <RowDefinition Height="0.5*"/>
+                                    <RowDefinition Height="0.5*"/>
+                                    <RowDefinition Height="0.5*"/>
+                                </Grid.RowDefinitions>
 
-                                            <Label  Grid.Column="0" Style="{StaticResource DataTitulo}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" />
-                                                        
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <BoxView Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Style="{StaticResource BoxStatus}"/>                                            
-                                            
-                                        </Grid>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <Label Text="{Binding Data, StringFormat='{0:dddd}'}" Grid.Row="1" VerticalOptions="Start" TextColor="Black"/>
+                                    <Label  Grid.Column="0" Style="{StaticResource DataTitulo}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" />
 
-                                        <Label Grid.Row="2" TextColor="Black" VerticalOptions="Center">                                            
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="Saldo: "/>
-                                                    <Span Text="{Binding Saldo}"/>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        
-                                        <Label Grid.Row="3" TextColor="Black" VerticalOptions="Center">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="Tempo jornada: "/>
-                                                    <Span Text="{Binding TempoJornada}"/>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <BoxView Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Style="{StaticResource BoxStatus}"/>
 
-                                    </Grid>
-                                </Frame>
-                            </StackLayout>
-                        </ViewCell>
+                                </Grid>
+
+                                <Label Text="{Binding Data, StringFormat='{0:dddd}'}" Grid.Row="1" VerticalOptions="Start" TextColor="Black"/>
+
+                                <Label Grid.Row="2" TextColor="Black" VerticalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Saldo: "/>
+                                            <Span Text="{Binding Saldo}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label Grid.Row="3" TextColor="Black" VerticalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Tempo jornada: "/>
+                                            <Span Text="{Binding TempoJornada}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                            </Grid>
+                        </Frame>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </syncfusion:SfListView.ItemTemplate>
+
+            </syncfusion:SfListView>
 
             <Button Command="{Binding CadastraPontoCommand}" Text="+" Grid.Row="1" Margin="0" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="70" WidthRequest="70" />
         </Grid>

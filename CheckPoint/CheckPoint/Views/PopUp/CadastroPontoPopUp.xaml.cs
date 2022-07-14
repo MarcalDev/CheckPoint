@@ -25,16 +25,12 @@ namespace CheckPoint.Views.PopUp
 
         Map mapa;
 
-        public CadastroPontoPopUp(Guid IdRelatorio, Usuario userObj)
+        public CadastroPontoPopUp(Usuario _userObj, bool _primeiro)
         {
             InitializeComponent();
 
-            _cadastroPontoViewModel = new CadastroPontoViewModel();
-            _cadastroPontoViewModel = BindingContext as CadastroPontoViewModel;
-
-            _cadastroPontoViewModel.UserObj = userObj;
-
-            _cadastroPontoViewModel.CarregaDados();
+            _cadastroPontoViewModel = new CadastroPontoViewModel(this.Navigation, _userObj, _primeiro);
+            BindingContext = _cadastroPontoViewModel;            
 
             CarregaDados().GetAwaiter();
 
@@ -44,7 +40,6 @@ namespace CheckPoint.Views.PopUp
 
             LblHoraAtual.Text = DateTime.Now.ToString("hh:mm:ss");
 
-            _cadastroPontoViewModel.IdRelatorio = IdRelatorio;
                                     
         }
 

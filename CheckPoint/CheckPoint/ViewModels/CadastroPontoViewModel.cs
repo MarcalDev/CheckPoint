@@ -24,30 +24,37 @@ namespace CheckPoint.ViewModels
         public Command _cadastraPontoCommand;        
 
         private Usuario _userObj;
+        private Ponto _ultimoPonto;
         private Guid _idRelatorio;
         private DateTime _dataAtual;
         private string _endereco;
         private double _latitude;
         private double _longitude;
+        private bool _primeiro;
         #endregion
 
 
         #region -> Construtor <-
-        public CadastroPontoViewModel()
+        public CadastroPontoViewModel(INavigation navigationPage, Usuario userObj, bool primeiro)
         {
             _relatorioRepository = new RelatorioRepository();
             _pontoRepository = new PontoRepository();
 
+            _userObj = userObj;
+            _primeiro = primeiro;
+            _dataAtual = DateTime.Now;
         }
         #endregion
         #region -> Encapsulamento <-
 
         public Usuario UserObj { get { return _userObj; } set { _userObj = value; OnPropertyChanged("UserObj"); } }
+        public Ponto UltimoPonto { get { return _ultimoPonto; } set { _ultimoPonto = value; OnPropertyChanged("UltimoPonto"); } }
         public Guid IdRelatorio { get { return _idRelatorio; } set { _idRelatorio = value; OnPropertyChanged("IdRelatorio"); } }
         public DateTime DataAtual { get { return _dataAtual; } set { _dataAtual = value; OnPropertyChanged("DataAtual"); } }
         public string Endereco { get { return _endereco; } set { _endereco = value; OnPropertyChanged("Endereco"); } }
         public double Latitude { get { return _latitude; } set { _latitude = value; OnPropertyChanged("Latitude"); } }
         public double Longitude { get { return _longitude; } set { _longitude = value; OnPropertyChanged("Longitude"); } }
+        public bool Primeiro { get { return _primeiro; } set { _primeiro = value; OnPropertyChanged("Primeiro"); } }
 
         #endregion
 
@@ -58,54 +65,46 @@ namespace CheckPoint.ViewModels
         #endregion
 
 
-        #region -> Métodos <-
+        #region -> Métodos <-        
+
+        // Verifica se é necessário Gerar relatório
         public void VerificaPonto()
         {
             try
             {
-                AdicionarPonto(IdRelatorio);
+                _ultimoPonto = _pontoRepository.GetLastPonto(_userObj.Id);
 
+                //_idRelatorio = _ultimoPonto.Fk_IdRelatorio;
 
-            }
-            catch (Exception ex)
-            {
+                var GuidNulo = new Guid("00000000-0000-0000-0000-000000000000");
 
-                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
-            }
-
-
-        }
-
-
-        public void AdicionarPonto(Guid IdRelatorio)
-        {
-            try
-            {
-                Ponto ponto = new Ponto();
-                ponto.DataInicio = DataAtual;
-                ponto.LocalInicial = _endereco;
-                ponto.Fk_IdRelatorio = IdRelatorio;
-                ponto.Ativo = 1;
-                ponto.Alteracao = null;
-                ponto.IsFinalizado = false;
+                if (_primeiro)
+                {
+                 _idRelatorio = AdicionarRelatorio();                    
+                    
+                }
                 
+                AdicionarPonto(_idRelatorio);
+                               
 
-                var p = _pontoRepository.InsertOrReplacePonto(ponto);
             }
             catch (Exception ex)
             {
+
                 App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
             }
+
+            App.Current.MainPage.Navigation.PopAsync();
+            
+
         }
 
-
+        // Adiciona Relatório
         public Guid AdicionarRelatorio()
         {
-            Guid RelatorioId;
+            Guid idRelatorio;
             try
             {
-
-
                 Relatorio relatorio = new Relatorio();
                 relatorio.Data = DataAtual;
                 relatorio.Status = "Ativo";
@@ -116,9 +115,7 @@ namespace CheckPoint.ViewModels
 
                 var p = _relatorioRepository.InsertOrReplaceRelatorio(relatorio);
 
-                RelatorioId = relatorio.Id;
-
-
+                idRelatorio = relatorio.Id;
             }
             catch (Exception ex)
             {
@@ -126,51 +123,54 @@ namespace CheckPoint.ViewModels
                 App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
             }
 
-            return RelatorioId;
+            return idRelatorio;
         }
 
 
-        public void CarregaHorario()
+        // Adiciona ponto
+        public void AdicionarPonto(Guid IdRelatorio)
         {
-            _dataAtual = DateTime.Now;
-        }
-
-        public void CarregaDados()
-        {
-            CarregaHorario();
-        }
-
-        public async Task GeocodEnderecoAsync()
-        {
-
             try
             {
+                Ponto ponto = new Ponto();
+                ponto.DataInicio = DataAtual;
+                ponto.LocalInicial = _endereco;
+                ponto.Fk_IdRelatorio = _idRelatorio;
+                ponto.Fk_IdUsuario = _userObj.Id;
+                ponto.IsFinalizado = false;
+                ponto.Ativo = 1;                
 
+                _pontoRepository.InsertOrReplacePonto(ponto);
+
+            }
+            catch (Exception ex)
+            {
+                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
+            }
+        }
+       
+        
+        // Conversão de coordenadas para endereço
+        public async Task GeocodEnderecoAsync()
+        {
+            try
+            {
                 Geocoder geoCoder = new Geocoder();
 
                 Position position = new Position(_latitude, _longitude);
                 IEnumerable<string> possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
                 string endereco = possibleAddresses.FirstOrDefault();
 
-                // Pegar apenas Rua,Bairro e Cidade
-                //string[] enderecoList = endereco.Split(", ");
-
                 _endereco = endereco;
+                OnPropertyChanged("Endereco");
             }
             catch (Exception ex)
             {
-
                 await App.Current.MainPage.DisplayAlert("Alerta!", ex.Message, "OK");
             }
 
-
         }
-
-        //public void PuxaGeo()
-        //{
-        //    GeocodEnderecoAsync().GetAwaiter();
-        //    _endereco = GeocodEnderecoAsync().GetAwaiter().GetResult();
-        //} 
+       
         #endregion
 
     }

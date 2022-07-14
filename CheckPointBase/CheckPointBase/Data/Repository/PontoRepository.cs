@@ -109,7 +109,7 @@ namespace CheckPointBase.Data.Repository
         {
             try
             {
-                var ponto = _dbContext.Conexao.FindWithQuery<Ponto>("SELECT * FROM PONTO WHERE USUARIO_ID - ? ORDER BY DT_INICIO DESC LIMIT 1", usuarioId);
+                var ponto = _dbContext.Conexao.FindWithQuery<Ponto>("SELECT * FROM PONTO WHERE USUARIO_ID = ? ORDER BY DT_INICIO DESC LIMIT 1", usuarioId);
                 return ponto;
             }
             catch (Exception e)

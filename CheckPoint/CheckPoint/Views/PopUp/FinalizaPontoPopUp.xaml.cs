@@ -28,9 +28,8 @@ namespace CheckPoint.Views.PopUp
             InitializeComponent();
 
             _finalizaPontoViewModel = new FinalizaPontoViewModel();
-            _finalizaPontoViewModel = BindingContext as FinalizaPontoViewModel;
+            BindingContext = _finalizaPontoViewModel;
 
-            //_finalizaPontoViewModel.CarregaDados();
             _finalizaPontoViewModel.Ponto = ponto;            
 
             CarregaDados().GetAwaiter();

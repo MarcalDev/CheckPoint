@@ -19,34 +19,22 @@ namespace CheckPoint.Views
         {
 
             InitializeComponent();
+            _homeViewModel = new HomeViewModel(this.Navigation, userObj);
+            BindingContext = _homeViewModel;
 
-            _homeViewModel = BindingContext as HomeViewModel;
-            _homeViewModel._navigation = Navigation;
-            _homeViewModel.UserObj = userObj;
-
-            _homeViewModel.ListarRelatorios();
-
-            ListaRelatorios.ItemsSource = _homeViewModel.ListaRelatorios;
         }
 
-        
-
-        private void ListaRelatorios_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        protected override void OnAppearing()
         {
-            try
-            {
-                var item = e.SelectedItem as Relatorio;
-
-                _homeViewModel.RelatorioItem = item;
-
-                _homeViewModel.NavegaDetalheRelatorio(item);
-            }
-            catch (Exception ex)
-            {
-
-                DisplayAlert("Alerta!", ex.Message, "OK");
-            }
-
+            base.OnAppearing();
+            _homeViewModel.CarregaLista();
         }
+
+        private void SfListView_ItemTapped(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
+        {
+            var selecionado = e.ItemData as Relatorio;
+            _homeViewModel.RelatorioSelecionado(selecionado);
+        }
+
     }
 }

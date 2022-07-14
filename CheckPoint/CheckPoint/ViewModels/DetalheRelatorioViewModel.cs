@@ -13,58 +13,47 @@ namespace CheckPoint.ViewModels
         #region -> Propriedades <-
         private PontoRepository _pontoRepository;       
 
-        private Relatorio relatorioItem;
-        private Usuario userObj;
-        private Guid idRelatorio;
-        private List<Ponto> pontos;
+        private Relatorio _relatorioItem;
+        private Usuario _userObj;
+        private Guid _idRelatorio;
+        private List<Ponto> _listapontos;
         #endregion
 
 
         #region -> Construtor <-
-        public DetalheRelatorioViewModel()
-        {
-            _pontoRepository = new PontoRepository();
+        public DetalheRelatorioViewModel(Relatorio relatorio, Usuario userObj)
+        {           
+            _userObj = userObj;
+            _relatorioItem = relatorio;
 
-            //AdicionarPonto();  
+            CarregaDados();  
         }
         #endregion
 
 
         #region -> Encapsulamento <-
-        public Relatorio RelatorioItem { get { return relatorioItem; } set { relatorioItem = value; OnPropertyChanged("RelatorioItem"); } }
-        public Usuario UserObj { get { return userObj; } set { userObj = value; OnPropertyChanged("UserObj"); } }
-        public Guid IdRelatorio { get { return idRelatorio; } set { idRelatorio = value; OnPropertyChanged("IdRelatorio"); } }
-        public List<Ponto> Pontos { get { return pontos; } set { pontos = value; OnPropertyChanged("Pontos"); } }
+        public Relatorio RelatorioItem { get { return _relatorioItem; } set { _relatorioItem = value; OnPropertyChanged("RelatorioItem"); } }
+        public Usuario UserObj { get { return _userObj; } set { _userObj = value; OnPropertyChanged("UserObj"); } }
+        public Guid IdRelatorio { get { return _idRelatorio; } set { _idRelatorio = value; OnPropertyChanged("IdRelatorio"); } }
+        public List<Ponto> ListaPontos { get { return _listapontos; } set { _listapontos = value; OnPropertyChanged("ListaPontos"); } }
         #endregion
 
 
         #region -> Métodos <-
-        public void ListarPontos()
+        void CarregaDados()
         {
-            pontos = _pontoRepository.GetPontosByRelatorio(relatorioItem.Id);
+            _pontoRepository = new PontoRepository();
+            ListaPontos = new List<Ponto>();
+
+            CarregaLista();
         }
-        // Uso apenas para dev
-        //public void AdicionarPonto()
-        //{
-        //    Ponto ponto = new Ponto();
-        //    ponto.DataInicio = new DateTime(2022, 07, 07, 15, 16, 10);
-        //    ponto.DataFim = new DateTime(2022, 07, 07, 15, 16, 10);
-        //    ponto.Local = "Endereco";
-        //    //ponto.Fk_IdRelatorio = Guid.Parse("2980b26f-8fb6-4b6e-b761-6180c926e248");
-        //    ponto.Fk_IdRelatorio = relatorioItem.Id;
-        //    ponto.Fk_IdUsuario = userObj.Id;
-        //    ponto.Ativo = 1;
-        //    ponto.Alteracao = null;
-
-        //    var p = _pontoRepository.InsertOrReplacePonto(ponto);
-        //}
-
-        public void CarregaDados()
+        
+        public void CarregaLista()
         {
-            //AdicionarPonto();
-
-            ListarPontos();
-        } 
+            ListaPontos.Clear();
+            ListaPontos = _pontoRepository.GetPontosByRelatorio(_relatorioItem.Id);
+            OnPropertyChanged("ListaPontos");
+        }
         #endregion
 
 

@@ -23,6 +23,7 @@ namespace CheckPoint.ViewModels
         public Command _cadastraPontoCommand;
 
         private Usuario _userObj;
+        private Ponto _ultimoPonto;
         private DateTime _dataAtual;
         private Guid _idRelatorio;
         private Relatorio _relatorioItem;
@@ -31,14 +32,15 @@ namespace CheckPoint.ViewModels
 
 
         #region -> Construtor <-
-        public HomeViewModel()
+        public HomeViewModel(INavigation navigationPage, Usuario userObj)
         {
-            _relatorioRepository = new RelatorioRepository();
-            _pontoRepository = new PontoRepository();
+            _navigation = navigationPage;
+            _userObj = userObj;
+            _dataAtual = DateTime.Now;
 
-            //AdicionarRelatorio();
+            CarregaDados();
 
-            CarregaHorario();
+           
 
         }
         #endregion
@@ -46,6 +48,7 @@ namespace CheckPoint.ViewModels
         #region -> Encapsulamento <-
 
         public Usuario UserObj { get { return _userObj; } set { _userObj = value; OnPropertyChanged("UserObj"); } }
+        public Ponto UltimoPonto { get { return _ultimoPonto; } set { _ultimoPonto = value; OnPropertyChanged("UltimoPonto"); } }
         public DateTime DataAtual { get { return _dataAtual; } set { _dataAtual = value; OnPropertyChanged("DataAtual"); } }
         public Guid IdRelatorio { get { return _idRelatorio; } set { _idRelatorio = value; OnPropertyChanged("IdRelatorio"); } }
         public Relatorio RelatorioItem { get { return _relatorioItem; } set { _relatorioItem = value; OnPropertyChanged("RelatorioItem"); } }
@@ -55,131 +58,68 @@ namespace CheckPoint.ViewModels
 
         #region -> Command's <-
 
-        public Command CadastraPontoCommand => _cadastraPontoCommand ?? (_cadastraPontoCommand = new Command(CadastraPonto));
+        public Command CadastraPontoCommand => _cadastraPontoCommand ?? (_cadastraPontoCommand = new Command(VerificaPonto));
 
         #endregion
 
         #region -> Métodos <-
-        public void CadastraPonto()
+        
+        // Instanciação dos repositórios
+        void CarregaDados()
         {
-            string hojeLocal = _dataAtual.ToString("dd/MM/yyyy");
+            _relatorioRepository = new RelatorioRepository();
+            _pontoRepository = new PontoRepository();
+            ListaRelatorios = new List<Relatorio>();
 
-            Ponto LastPonto = new Ponto();
-            LastPonto = _pontoRepository.GetLastPonto(_userObj.Id);
+
+            CarregaLista();
+        }
+                
+
+        // Limpeza, carregamento e refresh da lista
+        public void CarregaLista()
+        {
+            ListaRelatorios.Clear();
+            ListaRelatorios = _relatorioRepository.GetRelatorios(_userObj.Id);
+            OnPropertyChanged("ListaRelatorios");
+        }        
+
+
+        // Navegação para tela de detalhes apartir do tap na listView
+        public void RelatorioSelecionado(Relatorio relatorioSelecionado)
+        {
+            _relatorioItem = relatorioSelecionado;
+            OnPropertyChanged("RelatorioItem");
+
+            _navigation.PushAsync(new DetalheRelatorioPage(_relatorioItem, _userObj));
+        }
+
+        // Verifica se é necessário navegar para a tela de registro ou finalização do ponto
+        public void VerificaPonto()
+        {
+            
+            _ultimoPonto = _pontoRepository.GetLastPonto(_userObj.Id);
 
             // Se existir um ponto anterior
-            if (LastPonto != null)
+
+            if (_ultimoPonto != null)
             {
-                string LastPontoDateInicial = LastPonto.DataInicio.ToString("dd/MM/yyyy");
-
-                string LastPontoDateFinal = LastPonto.DataFim.ToString();
-
-                string dataDefault = "01/01/0001 00:00:00";
-
-                //Caso seja o primeiro ponto do dia
-                if (hojeLocal != LastPontoDateInicial)
+                if(!_ultimoPonto.IsFinalizado)
                 {
-                    App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(LastPonto.Fk_IdRelatorio, _userObj));
+                    App.Current.MainPage.Navigation.ShowPopup(new FinalizaPontoPopUp(_ultimoPonto, _userObj));
                 }
 
                 else
                 {
-                    if (LastPonto.IsFinalizado)
-                    {
-                        App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(LastPonto.Fk_IdRelatorio, _userObj));
-                    }
-
-                    else
-                    {
-                        App.Current.MainPage.Navigation.ShowPopup(new FinalizaPontoPopUp(LastPonto, _userObj));
-                    }
-                }
-
-                //Caso não seja o primeiro ponto do dia
-
-                // Caso o último ponto não tenha sido finalizado
+                    App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(_userObj, false));
+                }              
 
             }
             else
             {
-                Guid IdRelatorio = AdicionarRelatorio();
-
-                AdicionarPonto(IdRelatorio);
-
-                //App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(IdRelatorio, _userObj));
-
-            }
-
-
+                App.Current.MainPage.Navigation.ShowPopup(new CadastroPontoPopUp(_userObj, true));
+            }            
         }
-
-
-        public void ListarRelatorios()
-        {
-            _listaRelatorios = _relatorioRepository.GetRelatorios(_userObj.Id);
-
-        }
-
-        public Guid AdicionarRelatorio()
-        {
-            Guid RelatorioId;
-            try
-            {
-                Relatorio relatorio = new Relatorio();
-                relatorio.Data = DataAtual;
-                relatorio.Status = "Ativo";
-                relatorio.Fk_IdUsuario = _userObj.Id;
-                relatorio.Ativo = 1;
-                relatorio.Id = Guid.NewGuid();
-                relatorio.Alteracao = null;
-
-                var p = _relatorioRepository.InsertOrReplaceRelatorio(relatorio);
-
-                RelatorioId = relatorio.Id;
-
-            }
-            catch (Exception ex)
-            {
-
-                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
-            }
-
-            return RelatorioId;
-        }
-
-
-
-        public void NavegaDetalheRelatorio(Relatorio relatorio)
-        {
-
-            _navigation.PushAsync(new DetalheRelatorioPage(relatorio, _userObj));
-
-        }
-
-        public void AdicionarPonto(Guid IdRelatorio)
-        {
-            try
-            {
-                Ponto ponto = new Ponto();
-                ponto.DataInicio = DataAtual;
-                ponto.LocalInicial = "Endereco";
-                ponto.Fk_IdRelatorio = IdRelatorio;
-                ponto.Ativo = 1;
-                ponto.Alteracao = null;
-                ponto.IsFinalizado = false;
-
-                var p = _pontoRepository.InsertOrReplacePonto(ponto);
-            }
-            catch (Exception ex)
-            {
-                App.Current.MainPage.DisplayAlert("Alerta", ex.Message, "OK");
-            }
-        }
-
-        public void CarregaHorario()
-        {
-            _dataAtual = DateTime.Now;
-        } 
         #endregion
 
 

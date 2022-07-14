@@ -7,10 +7,7 @@
              xmlns:local="clr-namespace:CheckPoint.Views.PopUp"
              Size="{x:Static local:PopupSize.Large}"
              xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
-    <xct:Popup.BindingContext>
-        <viewModel:CadastroPontoViewModel/>
-    </xct:Popup.BindingContext> 
-    
+        
     <Grid Padding="20" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -26,7 +23,7 @@
         <StackLayout Grid.Row="1" VerticalOptions="Center">
                 <Label x:Name="LblEndereco" Text="Endereço" VerticalOptions="Center" TextColor="Black"/>
 
-                <Label x:Name="LblHoraAtual" HorizontalOptions="Center" FontSize="20" TextColor="Black"/>
+                <Label x:Name="LblHoraAtual" HorizontalOptions="Center" FontSize="24" TextColor="Black"/>
                 <Button Text="REGISTRAR PONTO" Command="{Binding CadastraPontoCommand}" Style="{StaticResource ButtonGreen}"/>
                 
             </StackLayout>        

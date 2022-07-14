@@ -18,15 +18,18 @@ namespace CheckPoint.Views
         public DetalheRelatorioPage(Relatorio relatorio, Usuario userObj)
         {
             InitializeComponent();
+            _detalheRelatorioViewModel = new DetalheRelatorioViewModel(relatorio, userObj);
+            BindingContext = _detalheRelatorioViewModel;
 
-            _detalheRelatorioViewModel = BindingContext as DetalheRelatorioViewModel;
-            _detalheRelatorioViewModel.RelatorioItem = relatorio;
-            _detalheRelatorioViewModel.UserObj = userObj;
-            _detalheRelatorioViewModel.CarregaDados();
 
             LblDataTitulo.Text = _detalheRelatorioViewModel.RelatorioItem.Data.ToString("dd/MM/yyyy");
-            ListaPontos.ItemsSource = _detalheRelatorioViewModel.Pontos;
+            
+        }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _detalheRelatorioViewModel.CarregaLista();
         }
 
     }
