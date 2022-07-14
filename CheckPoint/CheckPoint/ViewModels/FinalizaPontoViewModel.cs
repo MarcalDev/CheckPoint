@@ -70,7 +70,6 @@ namespace CheckPoint.ViewModels
             var p = _pontoRepository.SetPontoFinalizado(_ponto.Id, dataFim, Endereco);
 
             ContarSaldoEJornada();
-            _navigation.PopToRootAsync();
         }
 
         public void ContarSaldoEJornada()

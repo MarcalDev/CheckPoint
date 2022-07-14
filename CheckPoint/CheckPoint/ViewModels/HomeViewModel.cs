@@ -28,6 +28,7 @@ namespace CheckPoint.ViewModels
         private Guid _idRelatorio;
         private Relatorio _relatorioItem;
         private List<Relatorio> _listaRelatorios;
+        
         #endregion
 
 
@@ -38,9 +39,7 @@ namespace CheckPoint.ViewModels
             _userObj = userObj;
             _dataAtual = DateTime.Now;
 
-            CarregaDados();
-
-           
+            CarregaDados();          
 
         }
         #endregion
@@ -52,7 +51,8 @@ namespace CheckPoint.ViewModels
         public DateTime DataAtual { get { return _dataAtual; } set { _dataAtual = value; OnPropertyChanged("DataAtual"); } }
         public Guid IdRelatorio { get { return _idRelatorio; } set { _idRelatorio = value; OnPropertyChanged("IdRelatorio"); } }
         public Relatorio RelatorioItem { get { return _relatorioItem; } set { _relatorioItem = value; OnPropertyChanged("RelatorioItem"); } }
-        public List<Relatorio> ListaRelatorios { get { return _listaRelatorios; } set { _listaRelatorios = value; OnPropertyChanged("Lista"); } }
+        public List<Relatorio> ListaRelatorios { get { return _listaRelatorios; } set { _listaRelatorios = value; OnPropertyChanged("ListaRelatorios"); } }
+       
 
         #endregion
 
