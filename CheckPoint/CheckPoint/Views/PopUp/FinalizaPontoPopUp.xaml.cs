@@ -147,7 +147,8 @@ namespace CheckPoint.Views.PopUp
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            Dismiss(null);
+            Dismiss(null);                       
+
         }
     }
 }

@@ -62,6 +62,7 @@ namespace CheckPoint.ViewModels
 
         public void CadastrarUsuario()
         {
+
             Usuario user = new Usuario();
             user.NomeEmpresa = "";
             user.Alteracao = null;

@@ -21,6 +21,7 @@ namespace CheckPoint.ViewModels
         private PontoRepository _pontoRepository;
         
         public Command _cadastraPontoCommand;
+        public Command _atualizaListaCommand;
 
         private Usuario _userObj;
         private Ponto _ultimoPonto;
@@ -59,6 +60,7 @@ namespace CheckPoint.ViewModels
         #region -> Command's <-
 
         public Command CadastraPontoCommand => _cadastraPontoCommand ?? (_cadastraPontoCommand = new Command(VerificaPonto));
+        public Command AtualizaListaCommand => _atualizaListaCommand ?? (_atualizaListaCommand = new Command(CarregaLista));
 
         #endregion
 

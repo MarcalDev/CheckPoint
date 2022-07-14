@@ -16,7 +16,7 @@ using System.Timers;
 
 namespace CheckPoint.Droid
 {
-    [Activity(Theme = "@style/MainTheme.Splash", MainLauncher = true, NoHistory = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Theme = "@style/MainTheme.Splash", Label = "CheckPoint", Icon = "@mipmap/ic_launcher", MainLauncher = true, NoHistory = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class SplashActivity : AppCompatActivity
     {
         private GifImageView gifImageView;

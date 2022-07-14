@@ -29,6 +29,8 @@
 
             <Label Text="Preencha os campos abaixo" Grid.Row="1" HorizontalTextAlignment="Center" VerticalOptions="Center" Style="{StaticResource labelTitulo}" Margin="0,0,0,0"/>
 
+            
+
             <Frame Grid.Row="2" VerticalOptions="StartAndExpand" HeightRequest="510" BackgroundColor="White" Margin="25,0,25,80" CornerRadius="25" Padding="22">
                 <Grid>
                     <Grid.RowDefinitions>

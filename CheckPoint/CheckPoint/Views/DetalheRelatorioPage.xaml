@@ -76,7 +76,7 @@
                                             <Label  Grid.Row="0" Style="{StaticResource DataTitulo}">
                                                 <Label.FormattedText>
                                                     <FormattedString>                                                      
-                                                        <Span Text="{Binding DataInicio, StringFormat='{}{0:hh\\:mm\\:ss}'}"/>                                                       
+                                                        <Span Text="{Binding DataInicio, StringFormat='{}{0:HH\\:mm\\:ss}'}"/>                                                       
                                                         <Span Text=" - ENTRADA"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>
@@ -104,7 +104,7 @@
                                             <Label  Grid.Row="0" Style="{StaticResource DataTitulo}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="{Binding DataFim, StringFormat='{}{0:hh\\:mm\\:ss}'}"/>
+                                                        <Span Text="{Binding DataFim, StringFormat='{}{0:HH\\:mm\\:ss}'}"/>
                                                         <Span Text=" - SAÍDA"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>

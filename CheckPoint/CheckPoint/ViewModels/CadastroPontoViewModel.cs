@@ -99,8 +99,9 @@ namespace CheckPoint.ViewModels
                 }
                 else
                 {
-                    App.Current.MainPage.DisplayAlert("Alerta", "Distância acima de 200m", "OK");
+                    App.Current.MainPage.DisplayAlert("Alerta", "Voce está à uma distância acima de 200m", "OK");
                 }
+                
                 
                                
 
