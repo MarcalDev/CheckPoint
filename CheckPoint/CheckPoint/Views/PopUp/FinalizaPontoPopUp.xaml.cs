@@ -13,7 +13,7 @@ using Xamarin.Forms.Maps;
 using Plugin.Geolocator;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using CheckPoint.Controls;
+using CheckPointBase.Util;
 
 namespace CheckPoint.Views.PopUp
 {

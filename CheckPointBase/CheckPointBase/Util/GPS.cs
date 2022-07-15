@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 
-namespace CheckPoint.Controls
+namespace CheckPointBase.Util
 {
     public class GPS
     {
